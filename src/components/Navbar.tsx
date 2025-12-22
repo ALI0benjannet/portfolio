@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
@@ -11,6 +11,19 @@ const Navbar = () => {
     { href: "#projects", label: "Projets" },
     { href: "#contact", label: "Contact" },
   ];
+
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const isHash = href.startsWith("#");
+    if (!isHash) return;
+
+    event.preventDefault();
+    const target = document.querySelector(href);
+    if (target instanceof HTMLElement) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", href);
+    }
+    setIsOpen(false);
+  };
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
@@ -34,6 +47,7 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="px-3 py-2 rounded-xl text-sm text-base-content/70 hover:text-accent hover:bg-accent/10 transition-all duration-300 font-medium"
               >
                 {link.label}
@@ -64,7 +78,7 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="px-3 py-2 rounded-xl text-base-content/70 hover:text-accent hover:bg-accent/10 transition-all duration-300 font-medium"
               >
                 {link.label}

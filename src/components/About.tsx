@@ -42,30 +42,71 @@ const aboutSection = [
 
 const About = () => {
   return (
-    <div className="bg-base-300 p-10 mb-10 md:mb-32">
-      <Title title=" À propos " />
-      <div className="md:h-screen flex justify-center items-center">
-        <div className="hidden md:block">
-          <img
-            src={aliDev}
-            alt="img Ali Ben Jannet"
-            className="w-96 object-cover rounded-xl"
-          />
-        </div>
-        <div className="md:ml-4 space-y-4">
-          {aboutSection.map((section) => (
-            <div key={section.id} className="flex flex-col md:flex-row items-center bg-base-100 p-5 rounded-xl md:w-96 shadow-xl">
-              <div className="md:ml-4 text-center md:text-left">
-                {section.icon}
-                <h2 className="text-xl font-bold mb-1">{section.title}</h2>
-              </div>
-              <p className="text-sm">{section.description}</p>
+    <section
+      id="about"
+      className="bg-gradient-to-b from-base-100 to-base-200/50 py-20 md:py-32 px-4 scroll-mt-28"
+    >
+      <div className="max-w-6xl mx-auto">
+        <Title title="À propos" />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div className="flex justify-center md:justify-start sticky top-32">
+            <div className="relative">
+              <div className="absolute -inset-4 bg-accent/20 rounded-2xl blur-2xl opacity-60"></div>
+              <img
+                src={aliDev}
+                alt="Ali Ben Jannet - Developer"
+                className="relative w-80 h-80 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border-4 border-accent/30 hover:border-accent/70 transition-all duration-300 hover:shadow-accent/50 hover:scale-105"
+              />
             </div>
-          ))}
+          </div>
+
+          <div className="space-y-4">
+            {aboutSection.map((section, index) => (
+              <div
+                key={section.id}
+                className="group bg-base-100 hover:bg-accent/5 border-2 border-base-300 hover:border-accent/40 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 cursor-default"
+                style={{ 
+                  animation: `slideIn 0.6s ease-out forwards`,
+                  animationDelay: `${index * 100}ms`,
+                  opacity: 0
+                }}
+              >
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 text-accent group-hover:scale-110 transition-transform duration-300 pt-1">
+                    {section.icon}
+                  </div>
+                  
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
+                      {section.title}
+                    </h3>
+                    <p className="text-sm text-base-content/70 leading-relaxed group-hover:text-base-content/80 transition-colors">
+                      {section.description}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="mt-4 h-0.5 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 group-hover:via-accent/70 transition-all duration-300"></div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-    </div>
+      <style>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
+    </section>
   );
 };
 
