@@ -1,16 +1,33 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+type Language = "EN" | "FR";
+
+type Props = {
+  lang: Language;
+};
+
+const Navbar = ({ lang }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navLinks = [
-    { href: "#about", label: "À propos" },
-    { href: "#skills", label: "Compétences" },
-    { href: "#experiences", label: "Expériences" },
-    { href: "#projects", label: "Projets" },
-    { href: "#contact", label: "Contact" },
-  ];
+  const navLinks =
+    lang === "EN"
+      ? [
+          { href: "#home", label: "Home" },
+          { href: "#about", label: "About" },
+          { href: "#skills", label: "Skills" },
+          { href: "#experiences", label: "Experiences" },
+          { href: "#projects", label: "Projects" },
+          { href: "#contact", label: "Contact" },
+        ]
+      : [
+          { href: "#home", label: "Accueil" },
+          { href: "#about", label: "À propos" },
+          { href: "#skills", label: "Compétences" },
+          { href: "#experiences", label: "Expériences" },
+          { href: "#projects", label: "Projets" },
+          { href: "#contact", label: "Contact" },
+        ];
 
   const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     const isHash = href.startsWith("#");

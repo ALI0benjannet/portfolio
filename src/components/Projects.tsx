@@ -4,93 +4,181 @@ import emedical from "../assets/projects/emedical.png";
 import neuralbey from "../assets/projects/neuralbey.png";
 import portfolio from "../assets/projects/portfrlio.png";
 import diagnostique from "../assets/projects/diagnostique.png";
-const projects = [
-  {
-    id: 1,
-    title: "Tableau de bord des ressources humaines",
-    description: [
-      "Développement d'interface admin avec fonctionnalités avancées",
-      "Gestion des employés, congés et évaluations",
-    ],
-    technologies: ["Laravel", "React JS"],
-    demoLink: "#",
-    repoLink: "#",
-    image: login,
-  },
-  {
-    id: 2,
-    title: "Développement d'une application desktop de gestion médicale",
-    description: [
-      "Reprise des fonctionnalités du site web (chatbot, messagerie, gestion des pharmacies,gestion des rendez-vous)",
-      "Interface utilisateur intuitive avec JavaFX",
-    ],
-    technologies: ["JavaFX"],
-    demoLink: "#",
-    repoLink: "#",
-    image: emedical,
-  },
-  {
-    id: 3,
-    title:
-      "Développement d'un site web moderne et professionnel de gestion médicale",
-    description: [
-      "Développement d'un chatbot intelligent pour l'assistance aux patients",
-      "Implémentation d'un système de gestion de messagerie",
-      "Conception d'un module de gestion des pharmacies",
-      "Conception d'un module de gestion des des rendez-vous",
-    ],
-    technologies: ["Symfony","Docker"],
-    demoLink: "#",
-    repoLink: "#",
-    image: emedical,
-  },
-  {
-    id: 4,
-    title: "Développeur d'un site web moderne et professionnel pour Neuralbey",
+import { Github } from "lucide-react";
 
-    description: [
-      "Développement d'une page d'accueil (landing page) attrayante",
-      "Implémentation d'une page 'Contactez-nous' avec formulaire",
-      "Création d'une section dédiée aux offres de stages avec système de candidature en ligne",
-      "Conception d'un espace interne (back-office) pour la gestion des candidatures et des stagiaires",
-    ],
-    technologies: ["React", "Django"],
-    demoLink: "#",
-    repoLink: "#",
-    image: neuralbey,
-  },
-  {
-    id: 5,
-    title: "Développeur d'un site web portfolio personnel moderne",
-    description: [
-      "Design responsive et optimisé pour le SEO(Search Engine Optimization)",
-      "Animation et interactions fluides",
-    ],
-    technologies: ["ReactJS", "Tailwind CSS"],
-    demoLink: "#",
-    repoLink: "#",
-    image: portfolio,
-  },
-  {
-    id: 6,
-    title:
-      "Développement d'un site web de diagnostic dentaire avec Angular et développement d'un modèle de diagnostic avec machine learning",
-    description: [
-      "Analyse des données et création de rapports avec Jupyter Notebook (Python)",
-      "Production de métriques et visualisations pour le diagnostic",
-    ],
-    technologies: ["Angular", "Python", "VS Code"],
-    demoLink: "#",
-    repoLink: "#",
-    image: diagnostique,
-  },
-];
-const Projects = () => {
+type Language = "EN" | "FR";
+
+const projects = {
+  EN: [
+    {
+      id: 1,
+      title: "HR dashboard",
+      description: [
+        "Admin interface with advanced features",
+        "Manage employees, leave, and performance reviews",
+      ],
+      technologies: ["Laravel", "React JS"],
+      demoLink: "#",
+      repoLink: "#",
+      image: login,
+    },
+    {
+      id: 2,
+      title: "Medical desktop management app",
+      description: [
+        "Rebuilt web features: chatbot, messaging, pharmacy and appointment management",
+        "User-friendly interface with JavaFX",
+      ],
+      technologies: ["JavaFX"],
+      demoLink: "#",
+      repoLink: "#",
+      image: emedical,
+    },
+    {
+      id: 3,
+      title: "Modern medical management website",
+      description: [
+        "Smart chatbot for patient assistance",
+        "Messaging system implementation",
+        "Pharmacy management module",
+        "Appointments management module",
+      ],
+      technologies: ["Symfony", "Docker"],
+      demoLink: "#",
+      repoLink: "#",
+      image: emedical,
+    },
+    {
+      id: 4,
+      title: "Neuralbey modern professional website",
+      description: [
+        "Landing page",
+        "Contact page with form",
+        "Internship offers section with application flow",
+        "Back-office to manage applications and interns",
+      ],
+      technologies: ["ReactJS", "Django"],
+      demoLink: "#",
+      repoLink: "#",
+      image: neuralbey,
+    },
+    {
+      id: 5,
+      title: "Personal portfolio site",
+      description: [
+        "Responsive, SEO-optimized design",
+        "Smooth animations and interactions",
+      ],
+      technologies: ["ReactJS", "Tailwind CSS"],
+      demoLink: "#",
+      repoLink: "#",
+      image: portfolio,
+    },
+    {
+      id: 6,
+      title: "Dental diagnosis web app & ML model",
+      description: [
+        "Data analysis and reporting with Jupyter Notebook (Python)",
+        "Metrics and visualizations for diagnosis",
+      ],
+      technologies: ["Angular", "Python", "VS Code"],
+      demoLink: "#",
+      repoLink: "#",
+      image: diagnostique,
+    },
+  ],
+  FR: [
+    {
+      id: 1,
+      title: "Tableau de bord des ressources humaines",
+      description: [
+        "Développement d'interface admin avec fonctionnalités avancées",
+        "Gestion des employés, congés et évaluations",
+      ],
+      technologies: ["Laravel", "React JS"],
+      demoLink: "#",
+      repoLink: "#",
+      image: login,
+    },
+    {
+      id: 2,
+      title: "Application desktop de gestion médicale",
+      description: [
+        "Reprise des fonctionnalités web : chatbot, messagerie, gestion des pharmacies et des rendez-vous",
+        "Interface utilisateur intuitive avec JavaFX",
+      ],
+      technologies: ["JavaFX"],
+      demoLink: "#",
+      repoLink: "#",
+      image: emedical,
+    },
+    {
+      id: 3,
+      title: "Site web de gestion médicale",
+      description: [
+        "Chatbot intelligent pour l'assistance patient",
+        "Implémentation d'une messagerie",
+        "Gestion des pharmacies",
+        "Gestion des rendez-vous",
+      ],
+      technologies: ["Symfony", "Docker"],
+      demoLink: "#",
+      repoLink: "#",
+      image: emedical,
+    },
+    {
+      id: 4,
+      title: "Site vitrine professionnel pour Neuralbey",
+      description: [
+        "Page d'acceuil",
+        "Page contact avec formulaire",
+        "Section offres de stages avec candidature",
+        "Back-office pour gérer candidatures et stagiaires",
+      ],
+      technologies: ["ReactJS", "Django"],
+      demoLink: "#",
+      repoLink: "#",
+      image: neuralbey,
+    },
+    {
+      id: 5,
+      title: "Portfolio personnel moderne",
+      description: [
+        "Design responsive et optimisé SEO",
+        "Animations et interactions fluides",
+      ],
+      technologies: ["ReactJS", "Tailwind CSS"],
+      demoLink: "#",
+      repoLink: "#",
+      image: portfolio,
+    },
+    {
+      id: 6,
+      title: "Site de diagnostic dentaire + modèle ML",
+      description: [
+        "Analyse de données et rapports avec Jupyter Notebook (Python)",
+        "Métriques et visualisations pour le diagnostic",
+      ],
+      technologies: ["Angular", "Python", "VS Code"],
+      demoLink: "#",
+      repoLink: "#",
+      image: diagnostique,
+    },
+  ],
+};
+
+type Props = {
+  lang: Language;
+};
+
+const Projects = ({ lang }: Props) => {
+  const isEn = lang === "EN";
+  const projectList = isEn ? projects.EN : projects.FR;
   return (
     <section id="projects" className="mt-10 scroll-mt-28">
-      <Title title=" Projects " />
+      <Title title={isEn ? "My Projects" : "Mes Projets"} />
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+        {projectList.map((project) => (
           <article
             key={project.id}
             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-base-200/70 bg-base-100 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
@@ -127,11 +215,11 @@ const Projects = () => {
                 ))}
               </div>
               <div className="flex items-center gap-2 pt-2">
-                <a href={project.demoLink} className="btn btn-sm btn-accent">
-                  Demo
+                <a href={project.demoLink} className="btn btn-sm btn-accent w-2/3">
+                  {isEn ? "Demo" : "Démo"}
                 </a>
-                <a href={project.repoLink} className="btn btn-sm btn-outline">
-                  Code
+                <a href={project.repoLink} className="btn btn-sm btn-outline  w-1/3">
+                  <Github className="w-4" />
                 </a>
               </div>
             </div>
