@@ -13,8 +13,23 @@ const Contact = ({ lang }: Props) => {
   const isEn = lang === "EN";
   const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
+  const getErrorMessage = (error: unknown) => {
+    if (error instanceof Error) {
+      if (!isEn) {
+        const lowered = error.message.toLowerCase();
+        if (lowered.includes("failed to fetch")) return "Impossible de contacter le serveur.";
+        if (lowered.includes("network")) return "Problème réseau. Vérifiez votre connexion.";
+        return "Une erreur est survenue.";
+      }
+      return error.message;
+    }
+
+    return isEn ? "Something went wrong." : "Une erreur est survenue.";
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget; // cache form before async work (React reuses events)
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name")?.toString() ?? "";
     const email = formData.get("email")?.toString() ?? "";
@@ -41,15 +56,9 @@ const Contact = ({ lang }: Props) => {
       }
 
       setFeedback(isEn ? "Message sent! I'll reply soon." : "Message envoyé ! Je vous réponds rapidement.");
-      event.currentTarget.reset();
+      form.reset();
     } catch (error) {
-      const messageText =
-        error instanceof Error
-          ? error.message
-          : isEn
-            ? "Something went wrong."
-            : "Une erreur est survenue.";
-      setFeedback(messageText);
+      setFeedback(getErrorMessage(error));
     } finally {
       setSending(false);
     }
