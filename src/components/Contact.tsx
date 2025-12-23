@@ -11,7 +11,8 @@ const Contact = ({ lang }: Props) => {
   const [sending, setSending] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const isEn = lang === "EN";
-  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:4000";
+  // If VITE_API_URL is empty in prod (same domain), we call "/api/contact" directly.
+  const apiUrl = import.meta.env.VITE_API_URL || "";
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) {
@@ -40,7 +41,8 @@ const Contact = ({ lang }: Props) => {
     setSending(true);
 
     try {
-      const response = await fetch(`${apiUrl}/api/contact`, {
+      const endpoint = apiUrl ? `${apiUrl}/api/contact` : `/api/contact`;
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, subject, message }),
