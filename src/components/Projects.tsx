@@ -147,7 +147,7 @@ const projects = {
         "Design responsive et optimisé SEO",
         "Animations et interactions fluides",
       ],
-      technologies: ["ReactJS", "Tailwind CSS"],
+      technologies: ["ReactJS","Express/Nodemailer"],
       demoLink: "#",
       repoLink: "#",
       image: portfolio,
