@@ -102,7 +102,7 @@ const experiences = {
       id: 6,
       role: "Full Stack & Data Science",
       company: "ESPRIM",
-      period: "Oct 2024 - Dec 2025",
+      period: "Oct 2025 - Dec 2025",
       description: [
         "Semester project: ML model and web app for dental diagnosis.",
       ],
@@ -156,7 +156,7 @@ const experiences = {
       id: 6,
       role: "Développeur Full Stack & Data Science",
       company: "ESPRIM",
-      period: "Oct 2024 - Dec 2025",
+      period: "Oct 2025 - Dec 2025",
       description: [
         "Projet de semestre : modèle de machine learning et application web de diagnostic dentaire.",
       ],
