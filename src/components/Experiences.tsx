@@ -138,7 +138,7 @@ const experiences = {
     },
     {
       id: 4,
-      role: "Développeur Full Stack",
+      role: "Développeur Frontend",
       company: "Neuralbey",
       period: "Juil 2025 - Août 2025",
       description: ["Projet de fin d'année : application desktop de gestion médicale."],
@@ -146,7 +146,7 @@ const experiences = {
     },
     {
       id: 5,
-      role: "Développeur Frontend",
+      role: "Développeur Full Stack",
       company: "MyStartup",
       period: "Août 2025 - Sep 2025",
       description: ["Projet perso : portfolio pour présenter mes compétences et projets."],
