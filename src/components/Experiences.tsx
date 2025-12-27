@@ -84,7 +84,7 @@ const experiences = {
     },
     {
       id: 4,
-      role: "Full Stack Developer",
+      role: "Frontend Developer",
       company: "Neuralbey",
       period: "Jul 2025 - Aug 2025",
       description: ["Year-end project: medical desktop management app."],
@@ -92,7 +92,7 @@ const experiences = {
     },
     {
       id: 5,
-      role: "Frontend Developer",
+      role: "Full Stack Developer",
       company: "MyStartup",
       period: "Aug 2025 - Sep 2025",
       description: ["Personal project: portfolio to showcase skills and projects."],
