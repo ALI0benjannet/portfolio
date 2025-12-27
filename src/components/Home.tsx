@@ -1,4 +1,4 @@
-import { Facebook, Github, Linkedin, Mail } from "lucide-react";
+import { Download, Facebook, Github, Linkedin, Mail } from "lucide-react";
 import ali from "../assets/ali.jpg";
 
 type Language = "EN" | "FR";
@@ -37,10 +37,20 @@ const Home = ({ lang }: Props) => {
           <br />
           {isEn ? "Contact me if you need my help." : "Contactez-moi si vous avez besoin de mes services."}
         </p>
-        <a href="#contact" className="btn btn-accent md:w-fit">
-          <Mail className="w-5 h-5" />
-          {isEn ? "Contact me" : "Contactez-moi"}
-        </a>
+        <div className="flex flex-col md:flex-row md:items-center gap-3">
+          <a href="#contact" className="btn btn-accent md:w-fit">
+            <Mail className="w-5 h-5" />
+            {isEn ? "Contact me" : "Contactez-moi"}
+          </a>
+          <a
+            href="../CV_ALI-BENJ-ANNET.pdf"
+            download
+            className="btn btn-outline btn-accent md:w-fit"
+          >
+            <Download className="w-5 h-5" />
+            {isEn ? "Download CV" : "Télécharger le CV"}
+          </a>
+        </div>
 
         <div className="mt-4 flex flex-col items-start gap-3">
           <span className="text-sm font-semibold text-base-content/80">

@@ -3,7 +3,7 @@ import Title from "./Title";
 import imgPython from "../assets/techno/python.png";
 import imgPandas from "../assets/techno/pandas.png";
 import imgNumPy from "../assets/techno/numPy.png";
-import imgML from "../assets/techno/machineLearning.png";
+import imgML from "../assets/techno/jupyternotebook.png";
 import imgDL from "../assets/techno/deepLearning.png";
 import imgHTML from "../assets/techno/html.png";
 import imgCSS from "../assets/techno/css.png";
@@ -33,7 +33,7 @@ const skills = [
   { id: 1, name: "Python", image: imgPython },
   { id: 2, name: "Pandas", image: imgPandas },
   { id: 3, name: "NumPy", image: imgNumPy },
-  { id: 4, name: "Machine Learning", image: imgML },
+  { id: 4, name: "Jupyter Notebook", image: imgML },
   { id: 5, name: "Deep Learning", image: imgDL },
   { id: 6, name: "HTML", image: imgHTML },
   { id: 7, name: "CSS", image: imgCSS },
@@ -62,7 +62,7 @@ const experiences = {
       company: "TriosWeb",
       period: "Mar 2023 - Jun 2023",
       description: [
-        "Capstone: built an HR dashboard to track resources and metrics.",
+        "Final year project:creation of an HR dashboard to track resources and indicators.",
       ],
       image: triosweb,
     },
