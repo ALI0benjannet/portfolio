@@ -4,12 +4,39 @@ import emedical from "../assets/projects/emedical.png";
 import neuralbey from "../assets/projects/neuralbey.png";
 import portfolio from "../assets/projects/portfrlio.png";
 import diagnostique from "../assets/projects/diagnostique.png";
+import forsatech from "../assets/projects/forsatech.jpg";
+import tumor from "../assets/projects/tumor.jpg";
 import { Github } from "lucide-react";
 
 type Language = "EN" | "FR";
 
 const projects = {
   EN: [
+    {
+      id: 0,
+      title: "ForsaTech — AI-Powered Recruitment Platform",
+      description: [
+        "MERN stack web app with AI-driven CV parsing (spaCy Transformer + NER) and semantic matching (SBERT)",
+        "FastAPI microservice for ML model serving and candidate-job scoring",
+        "Multi-role dashboards (recruiter / candidate / admin) with interview management and real-time chat",
+      ],
+      technologies: ["React", "Node.js", "FastAPI", "MongoDB", "spaCy", "SBERT"],
+      demoLink: "#",
+      repoLink: "#",
+      image: forsatech,
+    },
+    {
+      id: -1,
+      title: "Brain Tumor Detection — Web App & ML Pipeline",
+      description: [
+        "Built and trained deep learning models (CNN, EfficientNet) for MRI brain tumor classification with GradCAM explainability and uncertainty estimation",
+        "Developed a REST API (FastAPI) and interactive dashboard (Streamlit) containerized with Docker",
+      ],
+      technologies: ["Python", "PyTorch", "FastAPI", "Streamlit", "Docker"],
+      demoLink: "#",
+      repoLink: "#",
+      image: tumor,
+    },
     {
       id: 1,
       title: "Dental diagnosis web app & ML model",
@@ -88,6 +115,31 @@ const projects = {
     },
   ],
   FR: [
+    {
+      id: 0,
+      title: "ForsaTech — Plateforme de recrutement propulsée par l'IA",
+      description: [
+        "Application web MERN avec parsing de CV basé sur l'IA (spaCy Transformer + NER) et matching sémantique (SBERT)",
+        "Microservice FastAPI pour le service de modèles ML et le scoring candidat-poste",
+        "Dashboards multi-rôles (recruteur / candidat / admin) avec gestion des entretiens et chat temps réel",
+      ],
+      technologies: ["React", "Node.js", "FastAPI", "MongoDB", "spaCy", "SBERT"],
+      demoLink: "#",
+      repoLink: "#",
+      image: login,
+    },
+    {
+      id: -1,
+      title: "Détection de tumeurs cérébrales — App web & pipeline ML",
+      description: [
+        "Modèles de deep learning (CNN, EfficientNet) entraînés pour la classification de tumeurs cérébrales sur IRM, avec explicabilité GradCAM et estimation d'incertitude",
+        "API REST (FastAPI) et dashboard interactif (Streamlit) conteneurisés avec Docker",
+      ],
+      technologies: ["Python", "PyTorch", "FastAPI", "Streamlit", "Docker"],
+      demoLink: "#",
+      repoLink: "#",
+      image: emedical,
+    },
     {
       id: 1,
   title: "Site de diagnostic dentaire + modèle ML",

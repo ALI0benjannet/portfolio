@@ -108,6 +108,26 @@ const experiences = {
       ],
       image: esprim,
     },
+    {
+      id: 7,
+      role: "Full Stack & Data Science / AI",
+      company: "ESPRIM",
+      period: "Oct 2025 - Apr 2026",
+      description: [
+        "Semester project: full-stack recruitment platform with AI-powered CV parsing (spaCy NER + Transformer), semantic matching (SBERT), interview management and real-time chat — MERN stack + FastAPI.",
+      ],
+      image: esprim,
+    },
+    {
+      id: 8,
+      role: "Full Stack & Data Science",
+      company: "ESPRIM",
+      period: "Feb 2026 - Apr 2026",
+      description: [
+        "Semester project: deep learning pipeline and web application for brain tumor detection and classification on MRI images.",
+      ],
+      image: esprim,
+    },
   ],
   FR: [
     {
@@ -162,6 +182,26 @@ const experiences = {
       ],
       image: esprim,
     },
+    {
+      id: 7,
+      role: "Développeur Full Stack & Data Science / IA",
+      company: "ESPRIM",
+      period: "Oct 2025 - Avr 2026",
+      description: [
+        "Projet de semestre : plateforme de recrutement full-stack avec parsing de CV propulsé par l'IA (spaCy NER + Transformer), matching sémantique (SBERT), gestion des entretiens et chat temps réel — stack MERN + FastAPI.",
+      ],
+      image: esprim,
+    },
+    {
+      id: 8,
+      role: "Développeur Full Stack & Data Science",
+      company: "ESPRIM",
+      period: "Fév 2026 - Avr 2026",
+      description: [
+        "Projet de semestre : pipeline de deep learning et application web pour la détection et classification de tumeurs cérébrales sur images IRM.",
+      ],
+      image: esprim,
+    },
   ],
 };
 
@@ -169,9 +209,44 @@ type Props = {
   lang: Language;
 };
 
+const MONTHS: Record<string, number> = {
+  jan: 0, janv: 0, january: 0, janvier: 0,
+  feb: 1, fev: 1, fév: 1, february: 1, février: 1,
+  mar: 2, mars: 2, march: 2,
+  apr: 3, avr: 3, april: 3, avril: 3,
+  may: 4, mai: 4,
+  jun: 5, juin: 5, june: 5,
+  jul: 6, juil: 6, july: 6, juillet: 6,
+  aug: 7, août: 7, aout: 7, august: 7,
+  sep: 8, sept: 8, september: 8, septembre: 8,
+  oct: 9, october: 9, octobre: 9,
+  nov: 10, november: 10, novembre: 10,
+  dec: 11, déc: 11, december: 11, décembre: 11,
+};
+
+const parseDate = (segment: string): number => {
+  const parts = segment.trim().toLowerCase().split(/\s+/);
+  if (parts.length < 2) return 0;
+  const month = MONTHS[parts[0].replace(/\.$/, "")] ?? 0;
+  const year = parseInt(parts[1], 10) || 0;
+  return year * 12 + month;
+};
+
+const parseStart = (period: string): number =>
+  parseDate(period.split(/[-–—]/)[0]);
+
+const parseEnd = (period: string): number => {
+  const segments = period.split(/[-–—]/);
+  return parseDate(segments[1] ?? segments[0]);
+};
+
 const Experiences = ({ lang }: Props) => {
   const isEn = lang === "EN";
-  const experienceList = isEn ? experiences.EN : experiences.FR;
+  const experienceList = [...(isEn ? experiences.EN : experiences.FR)].sort(
+    (a, b) =>
+      parseEnd(b.period) - parseEnd(a.period) ||
+      parseStart(b.period) - parseStart(a.period)
+  );
   return (
     <section id="experiences" className="space-y-6 scroll-mt-28">
       <Title title={isEn ? "My Experiences" : "Mes expériences"} />

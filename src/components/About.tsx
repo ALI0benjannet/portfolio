@@ -8,7 +8,7 @@ const aboutSections = {
   EN: [
     {
       id: 1,
-      title: "Passionate about Data Science & AI",
+      title: "Data Science & AI",
       description:
         "Designing intelligent solutions powered by data analysis and AI models using Python, Pandas, and NumPy.",
       icon: <Brain className="text-accent scale-150" />,
