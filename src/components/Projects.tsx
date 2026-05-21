@@ -126,7 +126,7 @@ const projects = {
       technologies: ["React", "Node.js", "FastAPI", "MongoDB", "spaCy", "SBERT"],
       demoLink: "#",
       repoLink: "#",
-      image: login,
+      image: forsatech,
     },
     {
       id: -1,
@@ -138,7 +138,7 @@ const projects = {
       technologies: ["Python", "PyTorch", "FastAPI", "Streamlit", "Docker"],
       demoLink: "#",
       repoLink: "#",
-      image: emedical,
+      image: tumor,
     },
     {
       id: 1,
