@@ -1,18 +1,18 @@
-import "./App.css";
+"use client";
+
 import { useEffect, useState } from "react";
-import Experiences from "./components/Experiences";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Langue from "./components/Langue";
+import Experiences from "@/components/Experiences";
+import Home from "@/components/Home";
+import Navbar from "@/components/Navbar";
+import About from "@/components/About";
+import Projects from "@/components/Projects";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import Langue from "@/components/Langue";
 
 type Language = "EN" | "FR";
 
-
-function App() {
+export default function ClientShell() {
   const [lang, setLang] = useState<Language>("EN");
 
   useEffect(() => {
@@ -22,8 +22,12 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = lang === "FR" ? "fr" : "en";
+  }, [lang]);
+
   const toggleLang = () => {
-    const next = lang === "EN" ? "FR" : "EN";
+    const next: Language = lang === "EN" ? "FR" : "EN";
     setLang(next);
     localStorage.setItem("portfolio-lang", next);
   };
@@ -36,7 +40,7 @@ function App() {
       </div>
       <About lang={lang} />
       <div className="p-5 md:px-[15%]">
-          <Experiences lang={lang} />
+        <Experiences lang={lang} />
         <Projects lang={lang} />
         <Contact lang={lang} />
       </div>
@@ -45,5 +49,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

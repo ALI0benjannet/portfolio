@@ -1,4 +1,5 @@
 import { Facebook, Github, Linkedin } from "lucide-react";
+import Image from "next/image";
 
 type Language = "EN" | "FR";
 
@@ -16,10 +17,12 @@ const Footer = ({ lang }: Props) => {
         <aside className="flex flex-col gap-2">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
-            <img
+            <Image
               className="h-10 w-10 rounded-full ring-2 ring-accent/50 transition-all duration-300 group-hover:scale-105 group-hover:ring-accent"
               src="/abj-logo.png"
               alt="ABJ portfolio logo"
+              width={40}
+              height={40}
             />
             <span className="hidden text-lg font-bold tracking-tight sm:block">
               <span className="text-accent">Ali Ben</span> Jannet

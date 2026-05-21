@@ -1,4 +1,5 @@
 import Title from "./Title";
+import Image from "next/image";
 import login from "../assets/projects/login.png";
 import emedical from "../assets/projects/emedical.png";
 import neuralbey from "../assets/projects/neuralbey.png";
@@ -236,10 +237,12 @@ const Projects = ({ lang }: Props) => {
             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-base-200/70 bg-base-100 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
           >
             <div className="relative h-40 overflow-hidden bg-base-200">
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                placeholder="blur"
               />
             </div>
             <div className="flex flex-1 flex-col gap-3 p-4 text-left">

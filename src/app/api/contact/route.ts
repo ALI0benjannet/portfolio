@@ -1,5 +1,7 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+
+export const runtime = "nodejs";
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -9,7 +11,17 @@ const escapeHtml = (value = "") =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
-const renderEmailTemplate = ({ name, email, subject, message }: { name: string; email: string; subject: string; message: string }) => {
+const renderEmailTemplate = ({
+  name,
+  email,
+  subject,
+  message,
+}: {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}) => {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeSubject = escapeHtml(subject);
@@ -49,31 +61,30 @@ const renderEmailTemplate = ({ name, email, subject, message }: { name: string; 
   `;
 };
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT || 587),
-  secure: process.env.SMTP_SECURE === "true",
-  auth:
-    process.env.SMTP_USER && process.env.SMTP_PASS
-      ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-      : undefined,
-});
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
+export async function POST(req: Request) {
+  let body: { name?: string; email?: string; subject?: string; message?: string };
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
-  const { name, email, subject, message } = req.body || {};
+  const { name, email, subject, message } = body || {};
 
   if (!name || !email || !subject || !message) {
-    return res.status(400).json({ error: "Missing required fields." });
+    return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
 
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    return res.status(500).json({ error: "Email service not configured." });
+    return NextResponse.json({ error: "Email service not configured." }, { status: 500 });
   }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT || 587),
+    secure: process.env.SMTP_SECURE === "true",
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+  });
 
   try {
     const info = await transporter.sendMail({
@@ -85,9 +96,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: renderEmailTemplate({ name, email, subject, message }),
     });
 
-    return res.status(200).json({ message: "Email sent", id: info.messageId });
+    return NextResponse.json({ message: "Email sent", id: info.messageId });
   } catch (error) {
     console.error("Failed to send email", error);
-    return res.status(500).json({ error: "Unable to send email right now." });
+    const isDev = process.env.NODE_ENV !== "production";
+    const detail = error instanceof Error ? error.message : String(error);
+    return NextResponse.json(
+      { error: isDev ? `SMTP error: ${detail}` : "Unable to send email right now." },
+      { status: 500 }
+    );
   }
 }

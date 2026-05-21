@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 type Language = "EN" | "FR";
@@ -48,10 +51,13 @@ const Navbar = ({ lang }: Props) => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
-            <img
+            <Image
               className="w-10 h-10 rounded-full ring-2 ring-accent/50 transition-all duration-300 group-hover:ring-accent group-hover:scale-105"
               src="/abj-logo.png"
               alt="ABJ portfolio logo"
+              width={40}
+              height={40}
+              priority
             />
             <span className="font-bold text-lg tracking-tight hidden sm:block">
               <span className="text-accent">Ali Ben</span> Jannet

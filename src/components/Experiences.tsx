@@ -1,4 +1,5 @@
 import Title from "./Title";
+import Image from "next/image";
 
 import imgPython from "../assets/techno/python.png";
 import imgPandas from "../assets/techno/pandas.png";
@@ -269,10 +270,12 @@ const Experiences = ({ lang }: Props) => {
                 >
                   <span className="absolute -left-[11px] top-6 h-5 w-5 rounded-full border-4 border-base-100 bg-gradient-to-br from-accent to-primary" />
                   <div className="flex items-center gap-4">
-                    <img
+                    <Image
                       src={experience.image}
                       alt={experience.company}
                       className="h-12 w-12 rounded-full border border-base-200 object-cover"
+                      width={48}
+                      height={48}
                     />
                     <div className="space-y-1 text-left">
                       <h2 className="text-lg font-bold leading-tight text-accent">
@@ -318,10 +321,12 @@ const Experiences = ({ lang }: Props) => {
                   className="group flex flex-col items-center gap-2 rounded-2xl border border-base-200/70 bg-base-100/80 p-3 text-center shadow transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-xl"
                 >
                   <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-base-200/60 p-2 transition group-hover:bg-accent/10">
-                    <img
+                    <Image
                       src={skill.image}
                       alt={skill.name}
                       className="h-12 w-12 object-contain"
+                      width={48}
+                      height={48}
                     />
                   </div>
                   <span className="text-xs font-semibold text-base-content/80">

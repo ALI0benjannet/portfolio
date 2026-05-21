@@ -1,3 +1,5 @@
+"use client";
+
 type Language = "EN" | "FR";
 
 type Props = {

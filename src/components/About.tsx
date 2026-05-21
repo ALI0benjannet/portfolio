@@ -1,4 +1,5 @@
 import Title from "./Title";
+import Image from "next/image";
 import aliDev from "../assets/aliDev.jpg";
 import { Brain, Cpu, Layout, Monitor, Server } from "lucide-react";
 
@@ -97,10 +98,11 @@ const About = ({ lang }: Props) => {
           <div className="flex justify-center md:justify-start sticky top-32">
             <div className="relative">
               <div className="absolute -inset-4 bg-accent/20 rounded-2xl blur-2xl opacity-60"></div>
-              <img
+              <Image
                 src={aliDev}
                 alt="Ali Ben Jannet - Developer"
                 className="relative w-80 h-80 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border-4 border-accent/30 hover:border-accent/70 transition-all duration-300 hover:shadow-accent/50 hover:scale-105"
+                placeholder="blur"
               />
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { Download, Facebook, Github, Linkedin, Mail } from "lucide-react";
+import Image from "next/image";
 import ali from "../assets/ali.jpg";
 
 type Language = "EN" | "FR";
@@ -43,7 +44,7 @@ const Home = ({ lang }: Props) => {
             {isEn ? "Contact me" : "Contactez-moi"}
           </a>
           <a
-            href="../CV_ALI-BENJ-ANNET.pdf"
+            href="/CV_ALI-BENJ-ANNET.pdf"
             download
             className="btn btn-outline btn-accent md:w-fit"
           >
@@ -88,11 +89,13 @@ const Home = ({ lang }: Props) => {
         </div>
       </div>
       <div className="md:ml-60 mb-10 ">
-        <img
+        <Image
           src={ali}
-          alt="img Ali Ben Jannet"
+          alt="Ali Ben Jannet - Full-Stack Developer & Data Science / AI Engineer"
           className="w-[65rem] h-[28rem] max-w-full object-cover border-8 border-accent shadow-xl"
           style={{ borderRadius: "35% 65% 42% 58% / 48% 68% 32% 52% " }}
+          placeholder="blur"
+          priority
         />
       </div>
     </div>
