@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# Ali Ben Jannet — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of **Ali Ben Jannet**, Data Science & AI engineering student at ESPRIM (Monastir, Tunisia).
 
-Currently, two official plugins are available:
+**Live:** https://alibenjannet.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Bilingual content (English / French), remembered per visitor and defaulting to the browser language
+- Sections: hero, about, experience timeline, skills, projects, certifications and contact
+- Downloadable CV in French or English
+- Working contact form (Next.js route handler + Nodemailer) with a spam honeypot and input validation
+- SEO: metadata, JSON-LD (Person / WebSite), sitemap, robots and a generated Open Graph image
+- Accessible navigation: skip link, active-section highlighting, keyboard-friendly menu, reduced-motion support
+- Security headers and no secrets in the repository
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · DaisyUI 5 · lucide-react · Nodemailer
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+cp .env.example .env.local   # then fill in your SMTP credentials
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open http://localhost:3000.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production |
+| `npm run start` | Serve the production build |
+| `node --env-file=.env.local scripts/smtp-test.cjs` | Check the SMTP configuration |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Environment variables
+
+| Variable | Description |
+| --- | --- |
+| `SMTP_HOST` | SMTP server, e.g. `smtp.gmail.com` |
+| `SMTP_PORT` | `465` (TLS) or `587` (STARTTLS) |
+| `SMTP_SECURE` | `true` for port 465 |
+| `SMTP_USER` | SMTP login |
+| `SMTP_PASS` | SMTP password (for Gmail, a 16-character App Password) |
+| `SMTP_FROM` | Sender shown in the email |
+| `TO_EMAIL` | Address that receives the messages |
+
+On Vercel, set them in **Project Settings → Environment Variables**.
+
+## Project structure
+
 ```
+src/
+  app/            layout, page, API route, SEO files, 404, Open Graph image
+  components/     one component per section + shared UI (Title, Reveal, SocialLinks…)
+  lib/site.ts     shared data: links, contact info, navigation, CV paths
+  assets/         images (profile, projects, company and technology logos)
+public/           CV PDFs and logo
+```
+
+To update content, edit the data arrays at the top of each component in `src/components/`.

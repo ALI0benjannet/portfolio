@@ -110,17 +110,36 @@ const describeSmtpError = (error: unknown) => {
 };
 
 export async function POST(req: Request) {
-  let body: { name?: string; email?: string; subject?: string; message?: string };
+  let body: { name?: unknown; email?: unknown; subject?: unknown; message?: unknown; website?: unknown };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
-  const { name, email, subject, message } = body || {};
+  // Champ piège : un humain ne le voit pas, un robot le remplit.
+  // On répond « succès » pour ne pas indiquer au robot qu'il a été détecté.
+  if (typeof body?.website === "string" && body.website.trim() !== "") {
+    return NextResponse.json({ message: "Email sent" });
+  }
+
+  const clean = (value: unknown) => (typeof value === "string" ? value.trim() : "");
+  const name = clean(body?.name);
+  const email = clean(body?.email);
+  const subject = clean(body?.subject);
+  const message = clean(body?.message);
 
   if (!name || !email || !subject || !message) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
+  }
+
+  if (name.length > 100 || email.length > 200 || subject.length > 200 || message.length > 5000) {
+    return NextResponse.json({ error: "One of the fields is too long." }, { status: 400 });
+  }
+
+  // Empêche l'injection d'en-têtes via des retours à la ligne dans l'objet.
+  if (/[\r\n]/.test(subject) || /[\r\n]/.test(name)) {
+    return NextResponse.json({ error: "Invalid characters in subject or name." }, { status: 400 });
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {

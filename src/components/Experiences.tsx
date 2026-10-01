@@ -1,123 +1,15 @@
 import Title from "./Title";
+import Reveal from "./Reveal";
 import Image from "next/image";
+import { Briefcase } from "lucide-react";
+import type { Language } from "@/lib/site";
 
-import imgPython from "../assets/techno/python.png";
-import imgPandas from "../assets/techno/pandas.png";
-import imgNumPy from "../assets/techno/numPy.png";
-import imgML from "../assets/techno/jupyternotebook.png";
-import imgDL from "../assets/techno/deepLearning.png";
-import imgHTML from "../assets/techno/html.png";
-import imgCSS from "../assets/techno/css.png";
-import imgJS from "../assets/techno/js.png";
-import imgREACT from "../assets/techno/react.png";
-import imgNEXT from "../assets/techno/next-js.webp";
-import imgTAILWIND from "../assets/techno/tailwind.png";
-import imgNODE from "../assets/techno/node-js.png";
-import imgTYPE from "../assets/techno/typescript.svg";
-import imgSpringBoot from "../assets/techno/springBoot.png";
-import imgSymfony from "../assets/techno/symfony.png";
-import imgPHP from "../assets/techno/php.png";
-import imgJava from "../assets/techno/java.png";
-import imgCpp from "../assets/techno/c++.png";
-import imgJavaFX from "../assets/techno/javafx.png";
-import imgAngular from "../assets/techno/angular.png";
-import imgLaravel from "../assets/techno/laravel.png";
 import triosweb from "../assets/companies/triosweb.png";
 import esprim from "../assets/companies/esprim.png";
 import neuralbey from "../assets/companies/neuralbey.png";
 import startup from "../assets/companies/startup.png";
 import anypli from "../assets/companies/anypli.png";
 import tradrly from "../assets/companies/tradrly.jpg";
-import imgDocker from "../assets/techno/docker.jpg";
-
-type Language = "EN" | "FR";
-
-const skills = [
-  { id: 1, name: "Python", image: imgPython },
-  { id: 2, name: "Pandas", image: imgPandas },
-  { id: 3, name: "NumPy", image: imgNumPy },
-  { id: 4, name: "Jupyter Notebook", image: imgML },
-  { id: 5, name: "Deep Learning", image: imgDL },
-  { id: 6, name: "HTML", image: imgHTML },
-  { id: 7, name: "CSS", image: imgCSS },
-  { id: 8, name: "JavaScript", image: imgJS },
-  { id: 9, name: "React", image: imgREACT },
-  { id: 10, name: "Next.js", image: imgNEXT },
-  { id: 11, name: "Tailwind CSS", image: imgTAILWIND },
-  { id: 12, name: "Node.js", image: imgNODE },
-  { id: 13, name: "Spring Boot", image: imgSpringBoot },
-  { id: 14, name: "Symfony", image: imgSymfony },
-  { id: 15, name: "PHP", image: imgPHP },
-  { id: 16, name: "Java", image: imgJava },
-  { id: 17, name: "C++", image: imgCpp },
-  { id: 18, name: "TypeScript", image: imgTYPE },
-  { id: 19, name: "JavaFX", image: imgJavaFX },
-  { id: 20, name: "Angular", image: imgAngular },
-  { id: 21, name: "Laravel", image: imgLaravel },
-  { id: 22, name: "Docker", image: imgDocker },
-
-];
-
-// Compétences sans icône dédiée : affichées en badges texte, par catégorie.
-const skillGroups = {
-  EN: [
-    {
-      id: "ai",
-      title: "AI & Deep Learning",
-      items: ["CNN", "EfficientNet", "Grad-CAM", "NLP (spaCy, SBERT, Transformers)", "LLMs & Vision-Language Models (Gemini)", "Speech (Whisper, ONNX)"],
-    },
-    {
-      id: "backend",
-      title: "Backend",
-      items: ["FastAPI", "Express.js", "Django", "REST APIs", "Microservices", "JWT"],
-    },
-    {
-      id: "databases",
-      title: "Databases",
-      items: ["PostgreSQL", "MongoDB", "MySQL", "Neo4j", "SQLite", "Prisma"],
-    },
-    {
-      id: "blockchain",
-      title: "Blockchain",
-      items: ["Hedera Hashgraph"],
-    },
-    {
-      id: "tools",
-      title: "Tools",
-      items: ["Git", "Vercel", "Postman"],
-    },
-  ],
-  FR: [
-    {
-      id: "ai",
-      title: "IA & Deep Learning",
-      items: ["CNN", "EfficientNet", "Grad-CAM", "NLP (spaCy, SBERT, Transformers)", "LLM & modèles vision-langage (Gemini)", "Parole (Whisper, ONNX)"],
-    },
-    {
-      id: "backend",
-      title: "Backend",
-      items: ["FastAPI", "Express.js", "Django", "API REST", "Microservices", "JWT"],
-    },
-    {
-      id: "databases",
-      title: "Bases de données",
-      items: ["PostgreSQL", "MongoDB", "MySQL", "Neo4j", "SQLite", "Prisma"],
-    },
-    {
-      id: "blockchain",
-      title: "Blockchain",
-      items: ["Hedera Hashgraph"],
-    },
-    {
-      id: "tools",
-      title: "Outils",
-      items: ["Git", "Vercel", "Postman"],
-    },
-  ],
-};
-
-const skillCount =
-  skills.length + skillGroups.EN.reduce((total, group) => total + group.items.length, 0);
 
 const experiences = {
   EN: [
@@ -138,7 +30,7 @@ const experiences = {
       id: 10,
       role: "AI & Data Science Intern",
       company: "Tradrly",
-      period: "Jun 2026 - AUG 2026",
+      period: "Jun 2026 - Aug 2026",
       description: [
         "Astro: built a local-first AI agent (Electron / React, Node.js, FastAPI) that understands French and English commands and controls the computer, using a regex → spaCy → LLM (Gemini / GPT-4o) cascade that keeps working offline.",
         "DOOBY: developed a zero-shot vision-language pipeline extracting bilingual Arabic–French timetables into schema-constrained JSON (F1 87.3%, 100% exact Arabic labels).",
@@ -154,7 +46,7 @@ const experiences = {
       company: "TriosWeb",
       period: "Mar 2023 - Jun 2023",
       description: [
-        "Final year project:creation of an HR dashboard to track resources and indicators.",
+        "Final year project: creation of an HR dashboard to track resources and indicators.",
       ],
       image: triosweb,
     },
@@ -176,10 +68,10 @@ const experiences = {
     },
     {
       id: 4,
-      role: "Frontend Developer",
+      role: "Frontend Developer Intern",
       company: "Neuralbey",
       period: "Jul 2025 - Aug 2025",
-      description: ["Year-end project: medical desktop management app."],
+      description: ["Internship: developed an application for Neuralbey with a contact form, internship offers with an application flow and a back-office (React, Django)."],
       image: neuralbey,
     },
     {
@@ -239,7 +131,7 @@ const experiences = {
       id: 10,
       role: "Stagiaire en IA & Data Science",
       company: "Tradrly",
-      period: "Juin 2026 - Aout 2026",  
+      period: "Juin 2026 - Août 2026",
       description: [
         "Astro : développement d'un agent IA local (Electron / React, Node.js, FastAPI) qui comprend des commandes en français et en anglais et pilote l'ordinateur, grâce à une cascade regex → spaCy → LLM (Gemini / GPT-4o) qui fonctionne aussi hors ligne.",
         "DOOBY : pipeline vision-langage zero-shot extrayant des emplois du temps bilingues arabe–français en JSON contraint par schéma (F1 87,3 %, 100 % des libellés arabes exacts).",
@@ -263,7 +155,7 @@ const experiences = {
       id: 2,
       role: "Développeur Desktop",
       company: "ESPRIM",
-      period: "Oct 2023 - Dec 2023",
+      period: "Oct 2023 - Déc 2023",
       description: ["Projet de semestre : application desktop de gestion médicale."],
       image: esprim,
     },
@@ -277,10 +169,10 @@ const experiences = {
     },
     {
       id: 4,
-      role: "Développeur Frontend",
+      role: "Stagiaire Développeur Frontend",
       company: "Neuralbey",
       period: "Juil 2025 - Août 2025",
-      description: ["Projet de fin d'année : application desktop de gestion médicale."],
+      description: ["Stage : développement d'une application pour la société Neuralbey avec formulaire de contact, offres de stage avec candidature et back-office (React, Django)."],
       image: neuralbey,
     },
     {
@@ -295,7 +187,7 @@ const experiences = {
       id: 6,
       role: "Développeur Full Stack & Data Science",
       company: "ESPRIM",
-      period: "Oct 2025 - Dec 2025",
+      period: "Oct 2025 - Déc 2025",
       description: [
         "Projet de semestre : modèle de machine learning et application web de diagnostic dentaire.",
       ],
@@ -359,134 +251,88 @@ const parseEnd = (period: string): number => {
   return parseDate(segments[1] ?? segments[0]);
 };
 
+
+const labels = {
+  EN: {
+    title: "Experience",
+    subtitle:
+      "Internships, academic and personal projects across AI, data and full-stack engineering.",
+  },
+  FR: {
+    title: "Expériences",
+    subtitle:
+      "Stages, projets académiques et personnels entre IA, data et ingénierie full-stack.",
+  },
+};
+
 const Experiences = ({ lang }: Props) => {
-  const isEn = lang === "EN";
-  const experienceList = [...(isEn ? experiences.EN : experiences.FR)].sort(
+  const t = labels[lang];
+  const experienceList = [...experiences[lang]].sort(
     (a, b) =>
       parseEnd(b.period) - parseEnd(a.period) ||
       parseStart(b.period) - parseStart(a.period)
   );
-  return (
-    <section id="experiences" className="space-y-6 scroll-mt-28">
-      <Title title={isEn ? "My Experiences" : "Mes expériences"} />
-      <section className="relative overflow-hidden rounded-3xl border border-base-200/60 bg-base-100/70 p-6 shadow-2xl backdrop-blur-md md:p-10">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
-        <div className="pointer-events-none absolute -right-16 -bottom-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
-        <div className="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-3">
-            <p className="text-left text-base text-base-content/80">
-              {isEn
-                ? "A journey across web, desktop, and data projects, focused on shipping products with polished interfaces."
-                : "Un parcours mêlant développement web, desktop et data, avec un focus sur des produits livrables et des interfaces soignées."}
-            </p>
-            <div className="relative space-y-5 border-l border-base-200/70 pl-6">
-              <div className="absolute left-[-1px] top-4 h-[calc(100%-2rem)] w-[2px] bg-gradient-to-b from-accent/70 via-base-200 to-transparent" />
-              {experienceList.map((experience) => (
-                <article
-                  key={experience.id}
-                  className="relative rounded-2xl border border-base-200/70 bg-base-100/90 p-5 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
-                >
-                  <span className="absolute -left-[11px] top-6 h-5 w-5 rounded-full border-4 border-base-100 bg-gradient-to-br from-accent to-primary" />
-                  <div className="flex items-center gap-4">
-                    <Image
-                      src={experience.image}
-                      alt={experience.company}
-                      className={`h-12 w-12 shrink-0 rounded-full border border-base-200 ${
-                        experience.wideLogo ? "bg-white object-contain p-1" : "object-cover"
-                      }`}
-                      width={48}
-                      height={48}
-                    />
-                    <div className="space-y-1 text-left">
-                      <h2 className="text-lg font-bold leading-tight text-accent">
-                        {experience.role}
-                      </h2>
-                      <p className="text-sm font-semibold text-base-content/80">
-                        {experience.company}
-                      </p>
-                      <span className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent">
-                        {experience.period}
-                      </span>
-                    </div>
-                  </div>
-                  <ul className="mt-3 space-y-2 text-left text-sm leading-relaxed text-base-content/80">
-                    {experience.description.map((desc, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent" />
-                        <span>{desc}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {experience.technologies && (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {experience.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </article>
-              ))}
-            </div>
-          </div>
 
-          <div
-            id="skills"
-            className="space-y-4 rounded-2xl border border-base-200/70 bg-base-100/90 p-4 shadow-lg scroll-mt-28"
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="text-left text-xl font-semibold">
-                {isEn ? "Stack & tools" : "Stack & outils"}
-              </h3>
-              <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-                {isEn ? `${skillCount} skills` : `${skillCount} compétences`}
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {skills.map((skill) => (
-                <div
-                  key={skill.id}
-                  className="group flex flex-col items-center gap-2 rounded-2xl border border-base-200/70 bg-base-100/80 p-3 text-center shadow transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-xl"
-                >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-base-200/60 p-2 transition group-hover:bg-accent/10">
-                    <Image
-                      src={skill.image}
-                      alt={skill.name}
-                      className="h-12 w-12 object-contain"
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                  <span className="text-xs font-semibold text-base-content/80">
-                    {skill.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="space-y-4 pt-2">
-              {(isEn ? skillGroups.EN : skillGroups.FR).map((group) => (
-                <div key={group.id} className="space-y-2 text-left">
-                  <h4 className="text-sm font-semibold text-accent">{group.title}</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
-                      >
-                        {item}
-                      </span>
-                    ))}
+  return (
+    <section id="experiences" className="scroll-mt-24 py-20 md:py-28">
+      <Title eyebrow="02" title={t.title} subtitle={t.subtitle} />
+
+      <ol className="relative mx-auto max-w-4xl border-l border-base-content/10 pl-6 md:pl-10">
+        {experienceList.map((experience, index) => (
+          <Reveal as="li" key={experience.id} delay={Math.min(index, 4) * 60} className="relative pb-8 last:pb-0">
+            <span className="absolute -left-[calc(1.5rem+7px)] top-7 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-accent ring-4 ring-base-100 md:-left-[calc(2.5rem+7px)]" />
+            <article className="group rounded-2xl border border-base-content/10 bg-base-200/40 p-5 transition duration-300 hover:border-accent/40 hover:bg-base-200/70 md:p-6">
+              <header className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={experience.image}
+                    alt={`${experience.company} logo`}
+                    className={`h-12 w-12 shrink-0 rounded-xl border border-base-content/10 ${
+                      "wideLogo" in experience && experience.wideLogo
+                        ? "bg-white object-contain p-1"
+                        : "object-cover"
+                    }`}
+                    width={48}
+                    height={48}
+                  />
+                  <div>
+                    <h3 className="text-lg font-bold leading-tight">{experience.role}</h3>
+                    <p className="mt-0.5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                      <Briefcase className="h-3.5 w-3.5" />
+                      {experience.company}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+                <span className="w-fit shrink-0 rounded-full border border-base-content/10 bg-base-100/60 px-3 py-1 font-mono text-xs text-base-content/70">
+                  {experience.period}
+                </span>
+              </header>
+
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-base-content/75">
+                {experience.description.map((desc, idx) => (
+                  <li key={idx} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/70" />
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {"technologies" in experience && experience.technologies && (
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {experience.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-[0.7rem] font-medium text-primary"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </article>
+          </Reveal>
+        ))}
+      </ol>
     </section>
   );
 };

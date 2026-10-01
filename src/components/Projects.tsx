@@ -1,3 +1,5 @@
+"use client";
+
 import Title from "./Title";
 import Image from "next/image";
 import login from "../assets/projects/login.png";
@@ -10,9 +12,11 @@ import tumor from "../assets/projects/tumor.jpg";
 import touribook from "../assets/projects/TouriBook.jpg";
 import astro from "../assets/projects/Agent_IA.png";
 import dooby from "../assets/projects/dooby.jpg";
-import { Github } from "lucide-react";
-
-type Language = "EN" | "FR";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import Reveal from "./Reveal";
+import { GithubIcon } from "./SocialLinks";
+import { site, type Language } from "@/lib/site";
 
 // demoLink / repoLink vides = boutons masqués sur la carte.
 const projects = {
@@ -66,8 +70,8 @@ const projects = {
         "Multi-role dashboards (recruiter / candidate / admin) with interview management and real-time chat",
       ],
       technologies: ["React", "Node.js", "FastAPI", "MongoDB", "spaCy", "SBERT"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: forsatech,
     },
     {
@@ -79,8 +83,8 @@ const projects = {
         "Developed a REST API (FastAPI) and interactive dashboard (Streamlit) containerized with Docker",
       ],
       technologies: ["Python", "PyTorch", "FastAPI", "Streamlit", "Docker"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: tumor,
     },
     {
@@ -91,9 +95,9 @@ const projects = {
         "Data analysis and reporting with Jupyter Notebook (Python)",
         "Metrics and visualizations for diagnosis",
       ],
-      technologies: ["Angular", "Python", "VS Code"],
-      demoLink: "#",
-      repoLink: "#",
+      technologies: ["Angular", "Python", "Jupyter"],
+      demoLink: "",
+      repoLink: "",
       image: diagnostique,
     },
     {
@@ -104,15 +108,15 @@ const projects = {
         "Responsive, SEO-optimized design",
         "Smooth animations and interactions",
       ],
-      technologies: ["Next.js", "Tailwind CSS"],
-      demoLink: "#",
-      repoLink: "#",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Nodemailer"],
+      demoLink: site.url,
+      repoLink: site.repo,
       image: portfolio,
     },
     {
       id: 3,
-      title: "Neuralbey modern professional website",
-      context: "Neuralbey · Jul 2025 - Aug 2025",
+      title: "Neuralbey web application",
+      context: "Neuralbey internship · Jul 2025 - Aug 2025",
       description: [
         "Landing page",
         "Contact page with form",
@@ -120,13 +124,13 @@ const projects = {
         "Back-office to manage applications and interns",
       ],
       technologies: ["ReactJS", "Django"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: neuralbey,
     },
     {
       id: 4,
-     title: "Modern medical management website",
+      title: "Modern medical management website",
       context: "ESPRIM · Jan 2024 - Mar 2024",
       description: [
         "Smart chatbot for patient assistance",
@@ -135,8 +139,8 @@ const projects = {
         "Appointments management module",
       ],
       technologies: ["Symfony", "Docker"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: emedical,
     },
     {
@@ -148,8 +152,8 @@ const projects = {
         "User-friendly interface with JavaFX",
       ],
       technologies: ["JavaFX"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: emedical,
     },
     {
@@ -161,8 +165,8 @@ const projects = {
         "Manage employees, leave, and performance reviews",
       ],
       technologies: ["Laravel", "React JS"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: login,
     },
   ],
@@ -216,8 +220,8 @@ const projects = {
         "Dashboards multi-rôles (recruteur / candidat / admin) avec gestion des entretiens et chat temps réel",
       ],
       technologies: ["React", "Node.js", "FastAPI", "MongoDB", "spaCy", "SBERT"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: forsatech,
     },
     {
@@ -229,49 +233,49 @@ const projects = {
         "API REST (FastAPI) et dashboard interactif (Streamlit) conteneurisés avec Docker",
       ],
       technologies: ["Python", "PyTorch", "FastAPI", "Streamlit", "Docker"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: tumor,
     },
     {
       id: 1,
-  title: "Site de diagnostic dentaire + modèle ML",
+      title: "Site de diagnostic dentaire + modèle ML",
       context: "ESPRIM · Oct 2025 - Déc 2025",
       description: [
         "Analyse de données et rapports avec Jupyter Notebook (Python)",
         "Métriques et visualisations pour le diagnostic",
       ],
-      technologies: ["Angular", "Python", "VS Code"],
-      demoLink: "#",
-      repoLink: "#",
+      technologies: ["Angular", "Python", "Jupyter"],
+      demoLink: "",
+      repoLink: "",
       image: diagnostique,
     },
     {
       id: 2,
-     title: "Portfolio personnel moderne",
+      title: "Portfolio personnel moderne",
       context: "Projet personnel · Août 2025 - Sep 2025",
       description: [
         "Design responsive et optimisé SEO",
         "Animations et interactions fluides",
       ],
-      technologies: ["Next.js","Express/Nodemailer"],
-      demoLink: "#",
-      repoLink: "#",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Nodemailer"],
+      demoLink: site.url,
+      repoLink: site.repo,
       image: portfolio,
     },
     {
       id: 3,
-         title: "Site vitrine professionnel pour Neuralbey",
-      context: "Neuralbey · Juil 2025 - Août 2025",
+      title: "Application web pour Neuralbey",
+      context: "Stage Neuralbey · Juil 2025 - Août 2025",
       description: [
-        "Page d'acceuil",
+        "Page d'accueil",
         "Page contact avec formulaire",
         "Section offres de stages avec candidature",
         "Back-office pour gérer candidatures et stagiaires",
       ],
       technologies: ["ReactJS", "Django"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: neuralbey,
     },
     {
@@ -285,34 +289,34 @@ const projects = {
         "Gestion des rendez-vous",
       ],
       technologies: ["Symfony", "Docker"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: emedical,
     },
     {
       id: 5,
-     title: "Application desktop de gestion médicale",
+      title: "Application desktop de gestion médicale",
       context: "ESPRIM · Oct 2023 - Déc 2023",
       description: [
         "Reprise des fonctionnalités web : chatbot, messagerie, gestion des pharmacies et des rendez-vous",
         "Interface utilisateur intuitive avec JavaFX",
       ],
       technologies: ["JavaFX"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: emedical,
     },
     {
       id: 6,
-     title: "Tableau de bord des ressources humaines",
+      title: "Tableau de bord des ressources humaines",
       context: "TriosWeb · Mars 2023 - Juin 2023",
       description: [
         "Développement d'interface admin avec fonctionnalités avancées",
         "Gestion des employés, congés et évaluations",
       ],
       technologies: ["Laravel", "React JS"],
-      demoLink: "#",
-      repoLink: "#",
+      demoLink: "",
+      repoLink: "",
       image: login,
     },
   ],
@@ -322,78 +326,140 @@ type Props = {
   lang: Language;
 };
 
+const labels = {
+  EN: {
+    title: "Featured Projects",
+    subtitle: "A selection of AI systems, data pipelines and full-stack platforms I have designed and built.",
+    featured: "Featured",
+    demo: "Live site",
+    code: "Code",
+    more: "Show all projects",
+    less: "Show fewer projects",
+  },
+  FR: {
+    title: "Projets",
+    subtitle: "Une sélection de systèmes d'IA, de pipelines de données et de plateformes full-stack que j'ai conçus et réalisés.",
+    featured: "À la une",
+    demo: "Voir le site",
+    code: "Code",
+    more: "Voir tous les projets",
+    less: "Voir moins de projets",
+  },
+};
+
+// Nombre de projets affichés avant le bouton « Voir tous les projets ».
+const INITIAL_COUNT = 6;
+// Les projets les plus récents (2026) sont mis en avant.
+const FEATURED_COUNT = 3;
+
 const Projects = ({ lang }: Props) => {
-  const isEn = lang === "EN";
-  const projectList = isEn ? projects.EN : projects.FR;
+  const [showAll, setShowAll] = useState(false);
+  const t = labels[lang];
+  const projectList = projects[lang];
+  const visible = showAll ? projectList : projectList.slice(0, INITIAL_COUNT);
+
   return (
-    <section id="projects" className="mt-10 scroll-mt-28">
-      <Title title={isEn ? "My Projects" : "Mes Projets"} />
+    <section id="projects" className="scroll-mt-24 py-20 md:py-28">
+      <Title eyebrow="04" title={t.title} subtitle={t.subtitle} />
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {projectList.map((project) => (
-          <article
-            key={project.id}
-            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-base-200/70 bg-base-100 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
-          >
-            <div className="relative h-40 overflow-hidden bg-base-200">
-              <Image
-                src={project.image}
-                alt={project.title}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                placeholder="blur"
-              />
-            </div>
-            <div className="flex flex-1 flex-col gap-3 p-4 text-left">
-              <div className="space-y-1">
-                <h3 className="text-lg font-semibold text-accent leading-tight">
-                  {project.title}
-                </h3>
-                {project.context && (
-                  <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
-                    {project.context}
-                  </p>
+        {visible.map((project, index) => (
+          <Reveal key={project.id} as="article" delay={(index % 3) * 80} className="h-full">
+            <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-base-content/10 bg-base-200/40 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-2xl hover:shadow-black/30">
+              <div className="relative aspect-[16/9] overflow-hidden bg-base-300">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  placeholder="blur"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-base-100/70 via-transparent to-transparent" />
+                {index < FEATURED_COUNT && (
+                  <span className="absolute left-3 top-3 rounded-full bg-accent px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-wide text-accent-content shadow">
+                    {t.featured}
+                  </span>
                 )}
               </div>
-              <ul className="space-y-1 text-sm text-base-content/70">
-                {project.description.map((line, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent" />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-auto flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              {(project.demoLink || project.repoLink) && (
-                <div className="flex items-center gap-2 pt-2">
-                  {project.demoLink && (
-                    <a href={project.demoLink} className="btn btn-sm btn-accent w-2/3">
-                      {isEn ? "Demo" : "Démo"}
-                    </a>
+
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <div>
+                  {project.context && (
+                    <p className="font-mono text-[0.7rem] uppercase tracking-wider text-base-content/50">
+                      {project.context}
+                    </p>
                   )}
-                  {project.repoLink && (
-                    <a
-                      href={project.repoLink}
-                      className="btn btn-sm btn-outline  w-1/3"
-                      aria-label="GitHub"
-                    >
-                      <Github className="w-4" />
-                    </a>
-                  )}
+                  <h3 className="mt-1.5 text-lg font-bold leading-snug transition group-hover:text-accent">
+                    {project.title}
+                  </h3>
                 </div>
-              )}
+
+                <ul className="space-y-1.5 text-sm leading-relaxed text-base-content/70">
+                  {project.description.map((line, idx) => (
+                    <li key={idx} className="flex gap-2.5">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-[0.7rem] font-medium text-primary"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {(project.demoLink || project.repoLink) && (
+                  <div className="flex items-center gap-2 border-t border-base-content/10 pt-4">
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-sm btn-accent rounded-full"
+                      >
+                        {t.demo}
+                        <ArrowUpRight className="h-4 w-4" />
+                      </a>
+                    )}
+                    {project.repoLink && (
+                      <a
+                        href={project.repoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-sm btn-ghost rounded-full"
+                      >
+                        <GithubIcon />
+                        {t.code}
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          </article>
+          </Reveal>
         ))}
       </div>
+
+      {projectList.length > INITIAL_COUNT && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShowAll((value) => !value)}
+            aria-expanded={showAll}
+            className="btn btn-outline rounded-full px-6"
+          >
+            {showAll ? t.less : `${t.more} (${projectList.length})`}
+            <ChevronDown className={`h-4 w-4 transition ${showAll ? "rotate-180" : ""}`} />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

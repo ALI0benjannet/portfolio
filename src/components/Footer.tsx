@@ -1,7 +1,8 @@
-import { Facebook, Github, Linkedin } from "lucide-react";
-import Image from "next/image";
+"use client";
 
-type Language = "EN" | "FR";
+import Image from "next/image";
+import SocialLinks from "./SocialLinks";
+import { navLinks, scrollToHash, site, type Language } from "@/lib/site";
 
 type Props = {
   lang: Language;
@@ -12,67 +13,65 @@ const Footer = ({ lang }: Props) => {
   const isEn = lang === "EN";
 
   return (
-    <footer className="border-t border-base-300/60 bg-base-200/80 px-6 py-10">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <aside className="flex flex-col gap-2">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
+    <footer className="border-t border-base-content/10 bg-base-200/40">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:px-8">
+        <div className="space-y-3">
+          <a href="#home" onClick={(e) => { e.preventDefault(); scrollToHash("#home"); }} className="group inline-flex items-center gap-3">
             <Image
-              className="h-10 w-10 rounded-full ring-2 ring-accent/50 transition-all duration-300 group-hover:scale-105 group-hover:ring-accent"
+              className="h-10 w-10 rounded-full ring-2 ring-accent/50 transition group-hover:ring-accent"
               src="/abj-logo.png"
-              alt="ABJ portfolio logo"
+              alt="Ali Ben Jannet logo"
               width={40}
               height={40}
             />
-            <span className="hidden text-lg font-bold tracking-tight sm:block">
+            <span className="text-lg font-bold tracking-tight">
               <span className="text-accent">Ali Ben</span> Jannet
             </span>
           </a>
-          <p className="text-sm text-base-content/70">
+          <p className="max-w-xs text-sm leading-relaxed text-base-content/60">
             {isEn
-              ? "Built with passion and curiosity. Open to new projects and collaborations."
-              : "Construit avec passion et curiosité. Disponible pour de nouveaux projets et collaborations."}
+              ? "Data Science & AI engineering student building AI systems and the platforms that ship them."
+              : "Élève ingénieur en Data Science & IA, je conçois des systèmes d'IA et les plateformes qui les mettent en production."}
           </p>
-          <p className="text-sm font-semibold text-base-content/80">
-            {isEn ? `© ${year} - All rights reserved` : `© ${year} - Tous droits réservés`}
-          </p>
-        </aside>
+        </div>
 
-        <nav className="flex flex-col gap-3 sm:items-end">
-          <div className="flex items-center gap-3 text-sm text-base-content/70">
-            <span className="h-px w-8 rounded-full bg-accent/70" />
-            <span>{isEn ? "Stay connected" : "Restons connectés"}</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/ALI0benjannet"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={isEn ? "Open GitHub" : "Ouvrir GitHub"}
-              className="rounded-full p-2 transition hover:bg-base-300"
-            >
-              <Github className="h-6 w-6" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ali-ben-jannet-2a7746324"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={isEn ? "Open LinkedIn" : "Ouvrir LinkedIn"}
-              className="rounded-full p-2 transition hover:bg-base-300"
-            >
-              <Linkedin className="h-6 w-6" />
-            </a>
-            <a
-              href="https://www.facebook.com/share/161sBQkeNY/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={isEn ? "Open Facebook" : "Ouvrir Facebook"}
-              className="rounded-full p-2 transition hover:bg-base-300"
-            >
-              <Facebook className="h-6 w-6" />
-            </a>
-          </div>
+        <nav aria-label="Footer">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-base-content/50">
+            {isEn ? "Navigation" : "Navigation"}
+          </h2>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+            {navLinks[lang].map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); scrollToHash(link.href); }}
+                  className="text-base-content/70 transition hover:text-accent"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
+
+        <div>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-base-content/50">
+            {isEn ? "Stay connected" : "Restons connectés"}
+          </h2>
+          <a href={`mailto:${site.email}`} className="text-sm text-base-content/70 transition hover:text-accent">
+            {site.email}
+          </a>
+          <SocialLinks lang={lang} className="mt-4" />
+        </div>
+      </div>
+
+      <div className="border-t border-base-content/10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-5 text-xs text-base-content/50 sm:flex-row md:px-8">
+          <p>© {year} {site.name}. {isEn ? "All rights reserved." : "Tous droits réservés."}</p>
+          <p>
+            {isEn ? "Built with" : "Réalisé avec"} Next.js · Tailwind CSS · DaisyUI
+          </p>
+        </div>
       </div>
     </footer>
   );

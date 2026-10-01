@@ -1,13 +1,15 @@
 import type { MetadataRoute } from "next";
+import { site } from "@/lib/site";
 
+// Le site tient sur une seule page : les ancres (#about…) ne sont pas des URL
+// distinctes pour les moteurs de recherche, on ne déclare donc que la racine.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://alibenjannet.vercel.app";
-  const now = new Date();
-  const sections = ["", "#about", "#skills", "#experiences", "#projects", "#certifications", "#contact"];
-  return sections.map((section) => ({
-    url: `${base}/${section}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: section === "" ? 1 : 0.7,
-  }));
+  return [
+    {
+      url: site.url,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+  ];
 }

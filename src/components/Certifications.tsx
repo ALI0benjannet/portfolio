@@ -1,7 +1,7 @@
 import Title from "./Title";
+import Reveal from "./Reveal";
 import { Award, BadgeCheck, FileText, Trophy } from "lucide-react";
-
-type Language = "EN" | "FR";
+import type { Language } from "@/lib/site";
 
 type Certification = {
   id: number;
@@ -59,12 +59,14 @@ const awards: Record<Language, { id: number; name: string }[]> = {
 const labels = {
   EN: {
     title: "Certifications & Awards",
+    subtitle: "Professional certifications, trainings and recognitions.",
     certifications: "Certifications",
     awards: "Awards",
     view: "View certificate",
   },
   FR: {
     title: "Certifications & Distinctions",
+    subtitle: "Certifications professionnelles, formations et distinctions.",
     certifications: "Certifications",
     awards: "Distinctions",
     view: "Voir le certificat",
@@ -81,79 +83,78 @@ const Certifications = ({ lang }: Props) => {
   const awardList = awards[lang];
 
   return (
-    <section id="certifications" className="mt-16 space-y-6 scroll-mt-28">
-      <Title title={t.title} />
-      <section className="relative overflow-hidden rounded-3xl border border-base-200/60 bg-base-100/70 p-6 shadow-2xl backdrop-blur-md md:p-10">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
-        <div className="pointer-events-none absolute -right-16 -bottom-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
-        <div className="relative space-y-8">
-          <div className="space-y-4">
-            <h3 className="text-left text-xl font-semibold">{t.certifications}</h3>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {certificationList.map((certification) => (
-                <article
-                  key={certification.id}
-                  className="flex h-full flex-col gap-3 rounded-2xl border border-base-200/70 bg-base-100/90 p-4 text-left shadow-lg transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-2xl"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                      <BadgeCheck className="h-5 w-5" />
-                    </div>
-                    <div className="space-y-1">
-                      <h4 className="font-semibold leading-tight text-accent">
-                        {certification.name}
-                      </h4>
-                      {certification.detail && (
-                        <p className="text-xs text-base-content/70">{certification.detail}</p>
-                      )}
-                      <p className="text-sm font-semibold text-base-content/80">
-                        {certification.issuer}
-                      </p>
-                    </div>
-                  </div>
-                  {(certification.date || certification.file) && (
-                    <div className="mt-auto flex flex-wrap items-center gap-2">
-                      {certification.date && (
-                        <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent">
-                          {certification.date}
-                        </span>
-                      )}
-                      {certification.file && (
-                        <a
-                          href={certification.file}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-xs btn-outline btn-accent"
-                        >
-                          <FileText className="h-3 w-3" />
-                          {t.view}
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </article>
-              ))}
-            </div>
-          </div>
+    <section id="certifications" className="scroll-mt-24 py-20 md:py-28">
+      <Title eyebrow="05" title={t.title} subtitle={t.subtitle} />
 
-          <div className="space-y-4">
-            <h3 className="text-left text-xl font-semibold">{t.awards}</h3>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {awardList.map((award, index) => (
-                <article
-                  key={award.id}
-                  className="flex items-center gap-3 rounded-2xl border border-base-200/70 bg-base-100/90 p-4 text-left shadow-lg transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-2xl"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    {index === 0 ? <Trophy className="h-5 w-5" /> : <Award className="h-5 w-5" />}
-                  </div>
-                  <p className="font-semibold leading-tight text-base-content/90">{award.name}</p>
-                </article>
-              ))}
-            </div>
+      <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
+        <div>
+          <h3 className="mb-4 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-accent">
+            <BadgeCheck className="h-4 w-4" />
+            {t.certifications}
+          </h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {certificationList.map((certification, index) => {
+              const highlighted = certification.issuer === "Hedera";
+              return (
+                <Reveal key={certification.id} delay={Math.min(index, 5) * 50} className="h-full">
+                  <article
+                    className={`flex h-full flex-col gap-3 rounded-2xl border p-4 transition duration-300 hover:-translate-y-0.5 ${
+                      highlighted
+                        ? "border-accent/30 bg-accent/5 hover:border-accent/60"
+                        : "border-base-content/10 bg-base-200/40 hover:border-accent/40"
+                    }`}
+                  >
+                    <div>
+                      <h4 className="font-semibold leading-snug">{certification.name}</h4>
+                      {certification.detail && (
+                        <p className="mt-0.5 text-xs text-base-content/60">{certification.detail}</p>
+                      )}
+                    </div>
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-sm font-medium text-accent">{certification.issuer}</span>
+                      <div className="flex items-center gap-2">
+                        {certification.date && (
+                          <span className="font-mono text-xs text-base-content/60">{certification.date}</span>
+                        )}
+                        {certification.file && (
+                          <a
+                            href={certification.file}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-xs btn-outline btn-accent rounded-full"
+                          >
+                            <FileText className="h-3 w-3" />
+                            {t.view}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
-      </section>
+
+        <div>
+          <h3 className="mb-4 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-accent">
+            <Trophy className="h-4 w-4" />
+            {t.awards}
+          </h3>
+          <div className="space-y-3">
+            {awardList.map((award, index) => (
+              <Reveal key={award.id} delay={index * 80}>
+                <article className="flex items-center gap-4 rounded-2xl border border-base-content/10 bg-gradient-to-r from-primary/10 to-transparent p-4 transition duration-300 hover:-translate-y-0.5 hover:border-primary/40">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                    {index === 0 ? <Trophy className="h-5 w-5" /> : <Award className="h-5 w-5" />}
+                  </span>
+                  <p className="font-semibold leading-snug">{award.name}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

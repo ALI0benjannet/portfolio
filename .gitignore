@@ -27,3 +27,12 @@ dist-ssr
 
 .vercel
 .env*.local
+
+# Secrets : ne jamais publier les identifiants SMTP
+.env
+.env.*
+!.env.example
+
+# Fichiers générés
+*.tsbuildinfo
+next-env.d.ts

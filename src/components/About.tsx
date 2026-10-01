@@ -1,94 +1,82 @@
 import Title from "./Title";
+import Reveal from "./Reveal";
 import Image from "next/image";
 import aliDev from "../assets/aliDev.jpg";
 import { Brain, Cpu, GraduationCap, Languages, Layout, Monitor, Server } from "lucide-react";
-
-type Language = "EN" | "FR";
+import type { Language } from "@/lib/site";
 
 const profileInfo = {
   EN: {
+    title: "About me",
+    subtitle: "Engineer in the making, at the crossroads of AI research and product engineering.",
     educationTitle: "Education",
-    education: "Engineering Degree in Data Science & AI — ESPRIM, Monastir — 2026",
+    education: "Engineering Degree in Data Science & AI",
+    school: "ESPRIM, Monastir · 2026",
     languagesTitle: "Languages",
     languages: ["Arabic: Native", "French: B2", "English: B1", "Russian: Beginner"],
   },
   FR: {
+    title: "À propos",
+    subtitle: "Futur ingénieur, à la croisée de la recherche en IA et de l'ingénierie produit.",
     educationTitle: "Formation",
-    education: "Diplôme d'ingénieur en Data Science & IA — ESPRIM, Monastir — 2026",
+    education: "Diplôme d'ingénieur en Data Science & IA",
+    school: "ESPRIM, Monastir · 2026",
     languagesTitle: "Langues",
     languages: ["Arabe : natif", "Français : B2", "Anglais : B1", "Russe : débutant"],
   },
 };
 
+const icons = [Brain, Layout, Server, Monitor, Cpu];
+
 const aboutSections = {
   EN: [
     {
-      id: 1,
       title: "Data Science & AI",
       description:
         "Designing intelligent solutions powered by data analysis and AI models using Python, Pandas, and NumPy.",
-      icon: <Brain className="text-accent scale-150" />,
     },
     {
-      id: 2,
-      title: "Frontend Developer",
+      title: "Frontend Development",
       description: "Building modern, interactive web interfaces with HTML, CSS, JavaScript, React, and Next.js.",
-      icon: <Layout className="text-accent scale-150" />,
     },
     {
-      id: 3,
-      title: "Backend Developer",
+      title: "Backend Development",
       description: "Creating robust APIs and backend systems with Node.js, Spring Boot, and Symfony, connected to databases.",
-      icon: <Server className="text-accent scale-150" />,
     },
     {
-      id: 4,
       title: "Desktop & Web Apps",
       description: "Delivering complete, performant applications using JavaFX and modern web technologies.",
-      icon: <Monitor className="text-accent scale-150" />,
     },
     {
-      id: 5,
       title: "AI Integration",
       description: "Embedding smart models into web applications to craft innovative, high-performing solutions.",
-      icon: <Cpu className="text-accent scale-150" />,
     },
   ],
   FR: [
     {
-      id: 1,
-      title: "Passionné par Data Science & Intelligence Artificielle",
+      title: "Data Science & IA",
       description:
-        "Conception et développement de solutions intelligentes basées sur l’analyse de données et les modèles d’IA à l’aide de Python, Pandas et NumPy.",
-      icon: <Brain className="text-accent scale-150" />,
+        "Conception et développement de solutions intelligentes basées sur l'analyse de données et les modèles d'IA à l'aide de Python, Pandas et NumPy.",
     },
     {
-      id: 2,
-      title: "Développeur Frontend",
+      title: "Développement Frontend",
       description:
-        "Création d’interfaces web modernes et interactives avec HTML, CSS, JavaScript, React et Next.js.",
-      icon: <Layout className="text-accent scale-150" />,
+        "Création d'interfaces web modernes et interactives avec HTML, CSS, JavaScript, React et Next.js.",
     },
     {
-      id: 3,
-      title: "Développeur Backend",
+      title: "Développement Backend",
       description:
-        "Développement d’APIs et de systèmes backend robustes avec Node.js, Spring Boot et Symfony, intégrés aux bases de données.",
-      icon: <Server className="text-accent scale-150" />,
+        "Développement d'APIs et de systèmes backend robustes avec Node.js, Spring Boot et Symfony, intégrés aux bases de données.",
     },
     {
-      id: 4,
       title: "Applications Desktop & Web",
       description:
-        "Développement d’applications complètes et performantes en utilisant JavaFX et des technologies web modernes.",
-      icon: <Monitor className="text-accent scale-150" />,
+        "Développement d'applications complètes et performantes en utilisant JavaFX et des technologies web modernes.",
     },
     {
-      id: 5,
-      title: "Intégration IA & Applications",
+      title: "Intégration de l'IA",
       description:
         "Intégration de modèles intelligents dans des applications web afin de créer des solutions innovantes et performantes.",
-      icon: <Cpu className="text-accent scale-150" />,
     },
   ],
 };
@@ -98,119 +86,85 @@ type Props = {
 };
 
 const About = ({ lang }: Props) => {
-  const isEn = lang === "EN";
-  const sections = isEn ? aboutSections.EN : aboutSections.FR;
-  const info = isEn ? profileInfo.EN : profileInfo.FR;
+  const sections = aboutSections[lang];
+  const info = profileInfo[lang];
 
   return (
-    <section
-      id="about"
-      className="bg-gradient-to-b from-base-100 to-base-200/50 py-12 md:py-20 px-4 scroll-mt-28"
-    >
-      <div className="max-w-6xl mx-auto">
-        <Title title={isEn ? "About" : "À propos"} />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          <div className="flex justify-center md:justify-start sticky top-32">
-            <div className="relative">
-              <div className="absolute -inset-4 bg-accent/20 rounded-2xl blur-2xl opacity-60"></div>
-              <Image
-                src={aliDev}
-                alt="Ali Ben Jannet - Developer"
-                className="relative w-80 h-80 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border-4 border-accent/30 hover:border-accent/70 transition-all duration-300 hover:shadow-accent/50 hover:scale-105"
-                placeholder="blur"
-              />
-            </div>
+    <section id="about" className="scroll-mt-24 py-20 md:py-28">
+      <Title eyebrow="01" title={info.title} subtitle={info.subtitle} />
+
+      <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+        <Reveal className="space-y-6 lg:sticky lg:top-28">
+          <div className="relative mx-auto max-w-sm lg:mx-0">
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/30 to-primary/20 blur-2xl" />
+            <Image
+              src={aliDev}
+              alt="Ali Ben Jannet at work"
+              className="relative aspect-square w-full rounded-3xl border border-base-content/10 object-cover shadow-2xl"
+              sizes="(max-width: 1024px) 384px, 400px"
+              placeholder="blur"
+            />
           </div>
 
-          <div className="space-y-4">
-            {sections.map((section, index) => (
-              <div
-                key={section.id}
-                className="group bg-base-100 hover:bg-accent/5 border-2 border-base-300 hover:border-accent/40 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 cursor-default"
-                style={{ 
-                  animation: `slideIn 0.6s ease-out forwards`,
-                  animationDelay: `${index * 100}ms`,
-                  opacity: 0
-                }}
+          <div className="mx-auto max-w-sm space-y-5 rounded-2xl border border-base-content/10 bg-base-200/40 p-5 lg:mx-0">
+            <div className="flex gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                <GraduationCap className="h-5 w-5" />
+              </span>
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-base-content/50">
+                  {info.educationTitle}
+                </h3>
+                <p className="mt-1 font-semibold leading-snug">{info.education}</p>
+                <p className="text-sm text-base-content/60">{info.school}</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                <Languages className="h-5 w-5" />
+              </span>
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-base-content/50">
+                  {info.languagesTitle}
+                </h3>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {info.languages.map((language) => (
+                    <span
+                      key={language}
+                      className="rounded-full border border-base-content/10 bg-base-100 px-3 py-1 text-xs font-medium text-base-content/80"
+                    >
+                      {language}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {sections.map((section, index) => {
+            const Icon = icons[index];
+            return (
+              <Reveal
+                key={section.title}
+                delay={index * 80}
+                className={index === 0 ? "sm:col-span-2" : ""}
               >
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 text-accent group-hover:scale-110 transition-transform duration-300 pt-1">
-                    {section.icon}
-                  </div>
-                  
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
-                      {section.title}
-                    </h3>
-                    <p className="text-sm text-base-content/70 leading-relaxed group-hover:text-base-content/80 transition-colors">
-                      {section.description}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="mt-4 h-0.5 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 group-hover:via-accent/70 transition-all duration-300"></div>
-              </div>
-            ))}
-
-            <div
-              className="group bg-base-100 hover:bg-accent/5 border-2 border-base-300 hover:border-accent/40 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-default space-y-5"
-              style={{
-                animation: `slideIn 0.6s ease-out forwards`,
-                animationDelay: `${sections.length * 100}ms`,
-                opacity: 0,
-              }}
-            >
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 text-accent pt-1">
-                  <GraduationCap className="text-accent scale-150" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
-                    {info.educationTitle}
-                  </h3>
-                  <p className="text-sm text-base-content/70 leading-relaxed">
-                    {info.education}
+                <article className="group h-full rounded-2xl border border-base-content/10 bg-base-200/40 p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-base-200/70">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-accent-content">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-4 text-lg font-bold">{section.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-base-content/70">
+                    {section.description}
                   </p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 text-accent pt-1">
-                  <Languages className="text-accent scale-150" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
-                    {info.languagesTitle}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {info.languages.map((language) => (
-                      <span
-                        key={language}
-                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
-                      >
-                        {language}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
-
-      <style>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </section>
   );
 };

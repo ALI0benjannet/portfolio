@@ -1,7 +1,21 @@
 import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { site } from "@/lib/site";
 import "./globals.css";
 
-const siteUrl = "https://alibenjannet.vercel.app";
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+const siteUrl = site.url;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,10 +56,6 @@ export const metadata: Metadata = {
   category: "technology",
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/",
-      fr: "/",
-    },
   },
   openGraph: {
     type: "website",
@@ -56,21 +66,12 @@ export const metadata: Metadata = {
     title: "Ali Ben Jannet — Data Science & AI Engineering Student",
     description:
       "Data Science & AI engineering student: LLM agents, vision-language models, deep learning, speech, and full-stack microservices (Python, FastAPI, Next.js, PostgreSQL, Docker). View projects, experiences & certifications.",
-    images: [
-      {
-        url: "/abj-logo.png",
-        width: 512,
-        height: 512,
-        alt: "Ali Ben Jannet — Portfolio",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ali Ben Jannet — Data Science & AI Engineering Student",
     description:
       "Data Science & AI engineering student: LLM agents, vision-language models, deep learning and full-stack microservices.",
-    images: ["/abj-logo.png"],
   },
   robots: {
     index: true,
@@ -91,7 +92,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1e1e2e",
+  themeColor: "#282a36",
   width: "device-width",
   initialScale: 1,
 };
@@ -164,8 +165,13 @@ export default function RootLayout({
   // suppressHydrationWarning : certaines extensions de navigateur injectent
   // des attributs sur <html> / <body> avant l'hydratation de React.
   return (
-    <html lang="en" data-theme="dracula" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="dracula"
+      className={`${jakarta.variable} ${jetbrains.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans" suppressHydrationWarning>
         {children}
         <script
           type="application/ld+json"
