@@ -31,6 +31,19 @@ const projects = {
       image: touribook,
     },
     {
+      id: 9,
+      title: "DOOBY – Timetable Extraction & \"Hey Dooby\" Wake-Word Detection",
+      context: "Tradrly · Jul 2026 - Aug 2026",
+      description: [
+        "Timetable extraction: zero-shot vision-language pipeline converting Arabic–French school timetables (image or PDF) into schema-constrained JSON (precision 93.9%, recall 81.6%, F1 87.3%, 100% exact Arabic subject labels on annotated ground truth)",
+        "Wake-word detection: made the offline \"Hey Dooby\" detector (OpenWakeWord, ONNX) truly operational after diagnosing a silent fallback that faked detections; built a real-time bench to calibrate the threshold (6/6 detections, no false triggers)",
+      ],
+      technologies: ["Gemini VLM", "Prompt Engineering", "JSON Schema", "Node.js", "Express", "Python", "OpenWakeWord", "ONNX", "Tkinter"],
+      demoLink: "",
+      repoLink: "",
+      image: dooby,
+    },
+    {
       id: 8,
       title: "Astro – Local-First AI Agent",
       context: "Tradrly · Jun 2026 - Jul 2026",
@@ -44,21 +57,9 @@ const projects = {
       image: astro,
     },
     {
-      id: 9,
-      title: "DOOBY – Timetable Extraction & \"Hey Dooby\" Wake-Word Detection",
-      context: "Tradrly · Jun 2026 - Jul 2026",
-      description: [
-        "Timetable extraction: zero-shot vision-language pipeline converting Arabic–French school timetables (image or PDF) into schema-constrained JSON (precision 93.9%, recall 81.6%, F1 87.3%, 100% exact Arabic subject labels on annotated ground truth)",
-        "Wake-word detection: made the offline \"Hey Dooby\" detector (OpenWakeWord, ONNX) truly operational after diagnosing a silent fallback that faked detections; built a real-time bench to calibrate the threshold (6/6 detections, no false triggers)",
-      ],
-      technologies: ["Gemini VLM", "Prompt Engineering", "JSON Schema", "Node.js", "Express", "Python", "OpenWakeWord", "ONNX", "Tkinter"],
-      demoLink: "",
-      repoLink: "",
-      image: dooby,
-    },
-    {
       id: 0,
       title: "ForsaTech — AI-Powered Recruitment Platform",
+      context: "ESPRIM · Oct 2025 - Apr 2026",
       description: [
         "MERN stack web app with AI-driven CV parsing (spaCy Transformer + NER) and semantic matching (SBERT)",
         "FastAPI microservice for ML model serving and candidate-job scoring",
@@ -72,6 +73,7 @@ const projects = {
     {
       id: -1,
       title: "Brain Tumor Detection — Web App & ML Pipeline",
+      context: "ESPRIM · Feb 2026 - Apr 2026",
       description: [
         "Built and trained deep learning models (CNN, EfficientNet) for MRI brain tumor classification with GradCAM explainability and uncertainty estimation",
         "Developed a REST API (FastAPI) and interactive dashboard (Streamlit) containerized with Docker",
@@ -84,6 +86,7 @@ const projects = {
     {
       id: 1,
       title: "Dental diagnosis web app & ML model",
+      context: "ESPRIM · Oct 2025 - Dec 2025",
       description: [
         "Data analysis and reporting with Jupyter Notebook (Python)",
         "Metrics and visualizations for diagnosis",
@@ -96,6 +99,7 @@ const projects = {
     {
       id: 2,
       title: "Personal portfolio site",
+      context: "Personal project · Aug 2025 - Sep 2025",
       description: [
         "Responsive, SEO-optimized design",
         "Smooth animations and interactions",
@@ -108,6 +112,7 @@ const projects = {
     {
       id: 3,
       title: "Neuralbey modern professional website",
+      context: "Neuralbey · Jul 2025 - Aug 2025",
       description: [
         "Landing page",
         "Contact page with form",
@@ -122,6 +127,7 @@ const projects = {
     {
       id: 4,
      title: "Modern medical management website",
+      context: "ESPRIM · Jan 2024 - Mar 2024",
       description: [
         "Smart chatbot for patient assistance",
         "Messaging system implementation",
@@ -136,6 +142,7 @@ const projects = {
     {
       id: 5,
       title: "Medical desktop management app",
+      context: "ESPRIM · Oct 2023 - Dec 2023",
       description: [
         "Rebuilt web features: chatbot, messaging, pharmacy and appointment management",
         "User-friendly interface with JavaFX",
@@ -148,6 +155,7 @@ const projects = {
     {
       id: 6,
       title: "HR dashboard",
+      context: "TriosWeb · Mar 2023 - Jun 2023",
       description: [
         "Admin interface with advanced features",
         "Manage employees, leave, and performance reviews",
@@ -173,6 +181,19 @@ const projects = {
       image: touribook,
     },
     {
+      id: 9,
+      title: "DOOBY – Emplois du temps & mot de réveil « Hey Dooby »",
+      context: "Tradrly · Juil 2026 - Août 2026",
+      description: [
+        "Extraction d'emplois du temps : pipeline vision-langage zero-shot convertissant des emplois du temps arabe–français (image ou PDF) en JSON contraint par schéma (précision 93,9 %, rappel 81,6 %, F1 87,3 %, 100 % des libellés arabes exacts sur une vérité terrain annotée)",
+        "Mot de réveil : remise en fonctionnement réel du détecteur hors ligne « Hey Dooby » (OpenWakeWord, ONNX) après diagnostic d'un repli silencieux qui simulait les détections ; banc temps réel pour calibrer le seuil (6/6 détections, aucune fausse alerte)",
+      ],
+      technologies: ["Gemini VLM", "Prompt Engineering", "JSON Schema", "Node.js", "Express", "Python", "OpenWakeWord", "ONNX", "Tkinter"],
+      demoLink: "",
+      repoLink: "",
+      image: dooby,
+    },
+    {
       id: 8,
       title: "Astro – Agent IA à exécution locale",
       context: "Tradrly · Juin 2026 - Juil 2026",
@@ -186,21 +207,9 @@ const projects = {
       image: astro,
     },
     {
-      id: 9,
-      title: "DOOBY – Emplois du temps & mot de réveil « Hey Dooby »",
-      context: "Tradrly · Juin 2026 - Juil 2026",
-      description: [
-        "Extraction d'emplois du temps : pipeline vision-langage zero-shot convertissant des emplois du temps arabe–français (image ou PDF) en JSON contraint par schéma (précision 93,9 %, rappel 81,6 %, F1 87,3 %, 100 % des libellés arabes exacts sur une vérité terrain annotée)",
-        "Mot de réveil : remise en fonctionnement réel du détecteur hors ligne « Hey Dooby » (OpenWakeWord, ONNX) après diagnostic d'un repli silencieux qui simulait les détections ; banc temps réel pour calibrer le seuil (6/6 détections, aucune fausse alerte)",
-      ],
-      technologies: ["Gemini VLM", "Prompt Engineering", "JSON Schema", "Node.js", "Express", "Python", "OpenWakeWord", "ONNX", "Tkinter"],
-      demoLink: "",
-      repoLink: "",
-      image: dooby,
-    },
-    {
       id: 0,
       title: "ForsaTech — Plateforme de recrutement propulsée par l'IA",
+      context: "ESPRIM · Oct 2025 - Avr 2026",
       description: [
         "Application web MERN avec parsing de CV basé sur l'IA (spaCy Transformer + NER) et matching sémantique (SBERT)",
         "Microservice FastAPI pour le service de modèles ML et le scoring candidat-poste",
@@ -214,6 +223,7 @@ const projects = {
     {
       id: -1,
       title: "Détection de tumeurs cérébrales — App web & pipeline ML",
+      context: "ESPRIM · Fév 2026 - Avr 2026",
       description: [
         "Modèles de deep learning (CNN, EfficientNet) entraînés pour la classification de tumeurs cérébrales sur IRM, avec explicabilité GradCAM et estimation d'incertitude",
         "API REST (FastAPI) et dashboard interactif (Streamlit) conteneurisés avec Docker",
@@ -226,6 +236,7 @@ const projects = {
     {
       id: 1,
   title: "Site de diagnostic dentaire + modèle ML",
+      context: "ESPRIM · Oct 2025 - Déc 2025",
       description: [
         "Analyse de données et rapports avec Jupyter Notebook (Python)",
         "Métriques et visualisations pour le diagnostic",
@@ -238,6 +249,7 @@ const projects = {
     {
       id: 2,
      title: "Portfolio personnel moderne",
+      context: "Projet personnel · Août 2025 - Sep 2025",
       description: [
         "Design responsive et optimisé SEO",
         "Animations et interactions fluides",
@@ -250,6 +262,7 @@ const projects = {
     {
       id: 3,
          title: "Site vitrine professionnel pour Neuralbey",
+      context: "Neuralbey · Juil 2025 - Août 2025",
       description: [
         "Page d'acceuil",
         "Page contact avec formulaire",
@@ -264,6 +277,7 @@ const projects = {
     {
       id: 4,
       title: "Site web de gestion médicale",
+      context: "ESPRIM · Jan 2024 - Mars 2024",
       description: [
         "Chatbot intelligent pour l'assistance patient",
         "Implémentation d'une messagerie",
@@ -278,6 +292,7 @@ const projects = {
     {
       id: 5,
      title: "Application desktop de gestion médicale",
+      context: "ESPRIM · Oct 2023 - Déc 2023",
       description: [
         "Reprise des fonctionnalités web : chatbot, messagerie, gestion des pharmacies et des rendez-vous",
         "Interface utilisateur intuitive avec JavaFX",
@@ -290,6 +305,7 @@ const projects = {
     {
       id: 6,
      title: "Tableau de bord des ressources humaines",
+      context: "TriosWeb · Mars 2023 - Juin 2023",
       description: [
         "Développement d'interface admin avec fonctionnalités avancées",
         "Gestion des employés, congés et évaluations",

@@ -239,7 +239,7 @@ const experiences = {
       id: 10,
       role: "Stagiaire en IA & Data Science",
       company: "Tradrly",
-      period: "Juin 2026 - Juil 2026",
+      period: "Juin 2026 - Aout 2026",  
       description: [
         "Astro : développement d'un agent IA local (Electron / React, Node.js, FastAPI) qui comprend des commandes en français et en anglais et pilote l'ordinateur, grâce à une cascade regex → spaCy → LLM (Gemini / GPT-4o) qui fonctionne aussi hors ligne.",
         "DOOBY : pipeline vision-langage zero-shot extrayant des emplois du temps bilingues arabe–français en JSON contraint par schéma (F1 87,3 %, 100 % des libellés arabes exacts).",
