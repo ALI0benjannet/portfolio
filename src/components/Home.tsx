@@ -23,18 +23,15 @@ const Home = ({ lang }: Props) => {
           {isEn ? "I'm " : "je suis "}
           <span className="text-accent">Ali Ben Jannet</span>
         </h1>
+        <h2 className="mt-3 text-xl md:text-2xl font-semibold text-accent text-center md:text-left">
+          {isEn
+            ? "Data Science & AI Engineering Student"
+            : "Élève ingénieur en Data Science & Intelligence Artificielle"}
+        </h2>
         <p className="my-4 text-md text-center md:text-left">
           {isEn
-            ? "I am a student at the Private Engineering School of Monastir, specializing in Data Science and Artificial Intelligence."
-            : "Je suis étudiant à l’École Supérieure Privée d’Ingénieurs de Monastir, spécialisé en Data Science et Intelligence Artificielle."}
-          <br />
-          {isEn
-            ? "I design and develop smart solutions based on data analysis and AI models using tools like Python, Pandas, and NumPy."
-            : "Je conçois et développe des solutions intelligentes basées sur l’analyse de données et les modèles d’IA en utilisant des outils tels que Python, Pandas et NumPy."}
-          <br />
-          {isEn
-            ? "I also build full-stack web apps with HTML, CSS, JavaScript, React, Node.js, Next.js, Spring Boot, Symfony, JavaFX, and databases to deliver complete, performant applications."
-            : "Je développe aussi des applications web complètes avec HTML, CSS, JavaScript, React, Node.js, Next.js, Spring Boot, Symfony, JavaFX et des bases de données afin de livrer des applications complètes et performantes."}
+            ? "Data Science & AI engineering student at ESPRIM (Monastir) with hands-on experience building end-to-end AI systems: LLM-powered agents, vision-language document extraction, deep learning for medical imaging and offline speech wake-word detection. Also experienced in the full-stack and microservice platforms that bring these models to users (Python, FastAPI, React / Next.js, Node.js, PostgreSQL, Docker). Hedera Certified Developer Associate."
+            : "Élève ingénieur en Data Science & IA à l'ESPRIM (Monastir), avec une expérience concrète de systèmes d'IA de bout en bout : agents à base de LLM, extraction de documents par modèles vision-langage, deep learning pour l'imagerie médicale et détection de mot de réveil hors ligne. Expérience également des plateformes full-stack et microservices qui mettent ces modèles en production (Python, FastAPI, React / Next.js, Node.js, PostgreSQL, Docker). Certifié Hedera Certified Developer Associate."}
           <br />
           {isEn ? "Contact me if you need my help." : "Contactez-moi si vous avez besoin de mes services."}
         </p>
@@ -91,7 +88,7 @@ const Home = ({ lang }: Props) => {
       <div className="md:ml-60 mb-10 ">
         <Image
           src={ali}
-          alt="Ali Ben Jannet - Full-Stack Developer & Data Science / AI Engineer"
+          alt="Ali Ben Jannet - Data Science & AI Engineering Student"
           className="w-[65rem] h-[28rem] max-w-full object-cover border-8 border-accent shadow-xl"
           style={{ borderRadius: "35% 65% 42% 58% / 48% 68% 32% 52% " }}
           placeholder="blur"

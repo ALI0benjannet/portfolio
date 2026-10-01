@@ -1,9 +1,24 @@
 import Title from "./Title";
 import Image from "next/image";
 import aliDev from "../assets/aliDev.jpg";
-import { Brain, Cpu, Layout, Monitor, Server } from "lucide-react";
+import { Brain, Cpu, GraduationCap, Languages, Layout, Monitor, Server } from "lucide-react";
 
 type Language = "EN" | "FR";
+
+const profileInfo = {
+  EN: {
+    educationTitle: "Education",
+    education: "Engineering Degree in Data Science & AI — ESPRIM, Monastir — 2026",
+    languagesTitle: "Languages",
+    languages: ["Arabic: Native", "French: B2", "English: B1", "Russian: Beginner"],
+  },
+  FR: {
+    educationTitle: "Formation",
+    education: "Diplôme d'ingénieur en Data Science & IA — ESPRIM, Monastir — 2026",
+    languagesTitle: "Langues",
+    languages: ["Arabe : natif", "Français : B2", "Anglais : B1", "Russe : débutant"],
+  },
+};
 
 const aboutSections = {
   EN: [
@@ -85,6 +100,7 @@ type Props = {
 const About = ({ lang }: Props) => {
   const isEn = lang === "EN";
   const sections = isEn ? aboutSections.EN : aboutSections.FR;
+  const info = isEn ? profileInfo.EN : profileInfo.FR;
 
   return (
     <section
@@ -136,6 +152,49 @@ const About = ({ lang }: Props) => {
                 <div className="mt-4 h-0.5 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 group-hover:via-accent/70 transition-all duration-300"></div>
               </div>
             ))}
+
+            <div
+              className="group bg-base-100 hover:bg-accent/5 border-2 border-base-300 hover:border-accent/40 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-default space-y-5"
+              style={{
+                animation: `slideIn 0.6s ease-out forwards`,
+                animationDelay: `${sections.length * 100}ms`,
+                opacity: 0,
+              }}
+            >
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 text-accent pt-1">
+                  <GraduationCap className="text-accent scale-150" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
+                    {info.educationTitle}
+                  </h3>
+                  <p className="text-sm text-base-content/70 leading-relaxed">
+                    {info.education}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 text-accent pt-1">
+                  <Languages className="text-accent scale-150" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-base-content mb-2 group-hover:text-accent transition-colors duration-300">
+                    {info.languagesTitle}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {info.languages.map((language) => (
+                      <span
+                        key={language}
+                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+                      >
+                        {language}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

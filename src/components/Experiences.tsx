@@ -26,6 +26,8 @@ import triosweb from "../assets/companies/triosweb.png";
 import esprim from "../assets/companies/esprim.png";
 import neuralbey from "../assets/companies/neuralbey.png";
 import startup from "../assets/companies/startup.png";
+import anypli from "../assets/companies/anypli.png";
+import tradrly from "../assets/companies/tradrly.jpg";
 import imgDocker from "../assets/techno/docker.jpg";
 
 type Language = "EN" | "FR";
@@ -55,8 +57,97 @@ const skills = [
   { id: 22, name: "Docker", image: imgDocker },
 
 ];
+
+// Compétences sans icône dédiée : affichées en badges texte, par catégorie.
+const skillGroups = {
+  EN: [
+    {
+      id: "ai",
+      title: "AI & Deep Learning",
+      items: ["CNN", "EfficientNet", "Grad-CAM", "NLP (spaCy, SBERT, Transformers)", "LLMs & Vision-Language Models (Gemini)", "Speech (Whisper, ONNX)"],
+    },
+    {
+      id: "backend",
+      title: "Backend",
+      items: ["FastAPI", "Express.js", "Django", "REST APIs", "Microservices", "JWT"],
+    },
+    {
+      id: "databases",
+      title: "Databases",
+      items: ["PostgreSQL", "MongoDB", "MySQL", "Neo4j", "SQLite", "Prisma"],
+    },
+    {
+      id: "blockchain",
+      title: "Blockchain",
+      items: ["Hedera Hashgraph"],
+    },
+    {
+      id: "tools",
+      title: "Tools",
+      items: ["Git", "Vercel", "Postman"],
+    },
+  ],
+  FR: [
+    {
+      id: "ai",
+      title: "IA & Deep Learning",
+      items: ["CNN", "EfficientNet", "Grad-CAM", "NLP (spaCy, SBERT, Transformers)", "LLM & modèles vision-langage (Gemini)", "Parole (Whisper, ONNX)"],
+    },
+    {
+      id: "backend",
+      title: "Backend",
+      items: ["FastAPI", "Express.js", "Django", "API REST", "Microservices", "JWT"],
+    },
+    {
+      id: "databases",
+      title: "Bases de données",
+      items: ["PostgreSQL", "MongoDB", "MySQL", "Neo4j", "SQLite", "Prisma"],
+    },
+    {
+      id: "blockchain",
+      title: "Blockchain",
+      items: ["Hedera Hashgraph"],
+    },
+    {
+      id: "tools",
+      title: "Outils",
+      items: ["Git", "Vercel", "Postman"],
+    },
+  ],
+};
+
+const skillCount =
+  skills.length + skillGroups.EN.reduce((total, group) => total + group.items.length, 0);
+
 const experiences = {
   EN: [
+    {
+      id: 9,
+      role: "Full Stack Engineering Intern",
+      company: "Anypli",
+      period: "Aug 2026",
+      description: [
+        "Designed and built TouriBook, a tourism booking platform: 7 FastAPI microservices (one PostgreSQL database each), an API gateway, a Next.js SSR client and a React admin, in FR / EN / AR.",
+        "Guaranteed zero overselling with a booking saga, compensation and atomic SQL updates validated by concurrency tests; integrated Stripe with signed, idempotent webhooks.",
+      ],
+      technologies: ["FastAPI", "PostgreSQL", "Next.js", "React", "TypeScript", "Stripe", "Docker"],
+      image: anypli,
+      wideLogo: true,
+    },
+    {
+      id: 10,
+      role: "AI & Data Science Intern",
+      company: "Tradrly",
+      period: "Jun 2026 - AUG 2026",
+      description: [
+        "Astro: built a local-first AI agent (Electron / React, Node.js, FastAPI) that understands French and English commands and controls the computer, using a regex → spaCy → LLM (Gemini / GPT-4o) cascade that keeps working offline.",
+        "DOOBY: developed a zero-shot vision-language pipeline extracting bilingual Arabic–French timetables into schema-constrained JSON (F1 87.3%, 100% exact Arabic labels).",
+        "DOOBY: made the offline \"Hey Dooby\" wake-word detector operational and built a real-time bench to calibrate its threshold (6/6 detections, no false triggers).",
+      ],
+      technologies: ["Python", "FastAPI", "spaCy", "Gemini", "faster-whisper", "OpenWakeWord", "ONNX", "Node.js", "Electron", "React"],
+      image: tradrly,
+      wideLogo: true,
+    },
     {
       id: 1,
       role: "Full Stack Developer",
@@ -131,6 +222,33 @@ const experiences = {
     },
   ],
   FR: [
+    {
+      id: 9,
+      role: "Stagiaire Ingénieur Full Stack",
+      company: "Anypli",
+      period: "Août 2026",
+      description: [
+        "Conception et développement de TouriBook, plateforme de réservation touristique : 7 microservices FastAPI (une base PostgreSQL chacun), une passerelle API, un client Next.js SSR et une interface d'administration React, en FR / EN / AR.",
+        "Zéro survente garantie par une saga de réservation, des compensations et des mises à jour SQL atomiques validées par des tests de concurrence ; intégration de Stripe avec webhooks signés et idempotents.",
+      ],
+      technologies: ["FastAPI", "PostgreSQL", "Next.js", "React", "TypeScript", "Stripe", "Docker"],
+      image: anypli,
+      wideLogo: true,
+    },
+    {
+      id: 10,
+      role: "Stagiaire en IA & Data Science",
+      company: "Tradrly",
+      period: "Juin 2026 - Juil 2026",
+      description: [
+        "Astro : développement d'un agent IA local (Electron / React, Node.js, FastAPI) qui comprend des commandes en français et en anglais et pilote l'ordinateur, grâce à une cascade regex → spaCy → LLM (Gemini / GPT-4o) qui fonctionne aussi hors ligne.",
+        "DOOBY : pipeline vision-langage zero-shot extrayant des emplois du temps bilingues arabe–français en JSON contraint par schéma (F1 87,3 %, 100 % des libellés arabes exacts).",
+        "DOOBY : remise en fonctionnement du détecteur hors ligne « Hey Dooby » et création d'un banc temps réel pour calibrer son seuil (6/6 détections, aucune fausse alerte).",
+      ],
+      technologies: ["Python", "FastAPI", "spaCy", "Gemini", "faster-whisper", "OpenWakeWord", "ONNX", "Node.js", "Electron", "React"],
+      image: tradrly,
+      wideLogo: true,
+    },
     {
       id: 1,
       role: "Développeur Full Stack",
@@ -273,7 +391,9 @@ const Experiences = ({ lang }: Props) => {
                     <Image
                       src={experience.image}
                       alt={experience.company}
-                      className="h-12 w-12 rounded-full border border-base-200 object-cover"
+                      className={`h-12 w-12 shrink-0 rounded-full border border-base-200 ${
+                        experience.wideLogo ? "bg-white object-contain p-1" : "object-cover"
+                      }`}
                       width={48}
                       height={48}
                     />
@@ -297,6 +417,18 @@ const Experiences = ({ lang }: Props) => {
                       </li>
                     ))}
                   </ul>
+                  {experience.technologies && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {experience.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </article>
               ))}
             </div>
@@ -311,7 +443,7 @@ const Experiences = ({ lang }: Props) => {
                 {isEn ? "Stack & tools" : "Stack & outils"}
               </h3>
               <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-                {isEn ? "22 skills" : "22 compétences"}
+                {isEn ? `${skillCount} skills` : `${skillCount} compétences`}
               </span>
             </div>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -332,6 +464,23 @@ const Experiences = ({ lang }: Props) => {
                   <span className="text-xs font-semibold text-base-content/80">
                     {skill.name}
                   </span>
+                </div>
+              ))}
+            </div>
+            <div className="space-y-4 pt-2">
+              {(isEn ? skillGroups.EN : skillGroups.FR).map((group) => (
+                <div key={group.id} className="space-y-2 text-left">
+                  <h4 className="text-sm font-semibold text-accent">{group.title}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

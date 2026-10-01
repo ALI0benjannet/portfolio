@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -61,6 +63,52 @@ const renderEmailTemplate = ({
   `;
 };
 
+type SmtpAttempt = { port: number; secure: boolean };
+
+const buildTransport = ({ port, secure }: SmtpAttempt) =>
+  nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port,
+    secure,
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    // Sans ces timeouts, une connexion bloquee fige la fonction jusqu'a ce que
+    // Vercel la tue : l'utilisateur ne voit qu'une erreur generique.
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000,
+    tls: { servername: process.env.SMTP_HOST },
+  });
+
+// Ports tentes dans l'ordre : celui configure, puis l'autre mode Gmail.
+// 465 (TLS implicite) est frequemment bloque/lent depuis un environnement
+// serverless ; 587 (STARTTLS) passe presque toujours.
+const buildAttempts = (): SmtpAttempt[] => {
+  const configuredPort = Number(process.env.SMTP_PORT || 587);
+  const configuredSecure = process.env.SMTP_SECURE
+    ? process.env.SMTP_SECURE === "true"
+    : configuredPort === 465;
+
+  const attempts: SmtpAttempt[] = [{ port: configuredPort, secure: configuredSecure }];
+  const fallback: SmtpAttempt =
+    configuredPort === 465 ? { port: 587, secure: false } : { port: 465, secure: true };
+
+  if (fallback.port !== configuredPort) attempts.push(fallback);
+  return attempts;
+};
+
+const describeSmtpError = (error: unknown) => {
+  const code = (error as { code?: string })?.code ?? "";
+  const responseCode = (error as { responseCode?: number })?.responseCode;
+
+  if (code === "EAUTH" || responseCode === 535) {
+    return "SMTP authentication failed. Check SMTP_USER / SMTP_PASS (Gmail requires a 16-character App Password, without spaces).";
+  }
+  if (code === "ETIMEDOUT" || code === "ECONNECTION" || code === "ESOCKET" || code === "EDNS") {
+    return "Could not reach the SMTP server (connection timed out).";
+  }
+  return error instanceof Error ? error.message : String(error);
+};
+
 export async function POST(req: Request) {
   let body: { name?: string; email?: string; subject?: string; message?: string };
   try {
@@ -75,35 +123,52 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
 
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+  }
+
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     return NextResponse.json({ error: "Email service not configured." }, { status: 500 });
   }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: process.env.SMTP_SECURE === "true",
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-  });
+  const mail = {
+    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    to: process.env.TO_EMAIL || process.env.SMTP_USER,
+    replyTo: email,
+    subject: `[Portfolio] ${subject}`,
+    text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
+    html: renderEmailTemplate({ name, email, subject, message }),
+  };
 
-  try {
-    const info = await transporter.sendMail({
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.TO_EMAIL || process.env.SMTP_USER,
-      replyTo: email,
-      subject: `[Portfolio] ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
-      html: renderEmailTemplate({ name, email, subject, message }),
-    });
+  let lastError: unknown;
 
-    return NextResponse.json({ message: "Email sent", id: info.messageId });
-  } catch (error) {
-    console.error("Failed to send email", error);
-    const isDev = process.env.NODE_ENV !== "production";
-    const detail = error instanceof Error ? error.message : String(error);
-    return NextResponse.json(
-      { error: isDev ? `SMTP error: ${detail}` : "Unable to send email right now." },
-      { status: 500 }
-    );
+  for (const attempt of buildAttempts()) {
+    const transporter = buildTransport(attempt);
+    try {
+      const info = await transporter.sendMail(mail);
+      return NextResponse.json({ message: "Email sent", id: info.messageId });
+    } catch (error) {
+      lastError = error;
+      console.error(`SMTP attempt failed on port ${attempt.port}`, error);
+
+      // Des identifiants invalides echoueront de la meme facon sur tous les
+      // ports : inutile de reessayer.
+      const code = (error as { code?: string })?.code;
+      if (code === "EAUTH") break;
+    } finally {
+      transporter.close();
+    }
   }
+
+  const detail = describeSmtpError(lastError);
+  const isDev = process.env.NODE_ENV !== "production";
+
+  return NextResponse.json(
+    {
+      error: isDev
+        ? `SMTP error: ${detail}`
+        : "Unable to send email right now. Please write directly to alibenjannette@gmail.com.",
+    },
+    { status: 502 }
+  );
 }

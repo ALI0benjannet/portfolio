@@ -6,11 +6,11 @@ const siteUrl = "https://alibenjannet.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ali Ben Jannet — Full-Stack & Data Science / AI Developer",
+    default: "Ali Ben Jannet — Data Science & AI Engineering Student",
     template: "%s | Ali Ben Jannet",
   },
   description:
-    "Portfolio of Ali Ben Jannet — Full-Stack web developer and Data Science / AI engineering student at ESPRIM Monastir. React, Next.js, Node.js, Python, FastAPI, deep learning.",
+    "Portfolio of Ali Ben Jannet — Data Science & AI engineering student at ESPRIM Monastir building end-to-end AI systems: LLM agents, vision-language document extraction, deep learning for medical imaging, speech wake-word detection, plus full-stack microservice platforms. Hedera Certified Developer Associate.",
   applicationName: "Ali Ben Jannet Portfolio",
   keywords: [
     "Ali Ben Jannet",
@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     "Machine Learning",
     "Deep Learning",
     "AI Engineer",
+    "LLM",
+    "Vision-Language Models",
+    "Microservices",
+    "PostgreSQL",
+    "Hedera",
     "React",
     "Next.js",
     "Node.js",
@@ -48,9 +53,9 @@ export const metadata: Metadata = {
     alternateLocale: ["fr_FR"],
     url: siteUrl,
     siteName: "Ali Ben Jannet Portfolio",
-    title: "Ali Ben Jannet — Full-Stack & Data Science / AI Developer",
+    title: "Ali Ben Jannet — Data Science & AI Engineering Student",
     description:
-      "Full-Stack Developer & Data Science / AI student. React, Next.js, Node.js, Python, FastAPI, deep learning. View projects & experiences.",
+      "Data Science & AI engineering student: LLM agents, vision-language models, deep learning, speech, and full-stack microservices (Python, FastAPI, Next.js, PostgreSQL, Docker). View projects, experiences & certifications.",
     images: [
       {
         url: "/abj-logo.png",
@@ -62,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ali Ben Jannet — Full-Stack & Data Science / AI Developer",
+    title: "Ali Ben Jannet — Data Science & AI Engineering Student",
     description:
-      "Full-Stack Developer & Data Science / AI student. React, Next.js, Node.js, Python, FastAPI.",
+      "Data Science & AI engineering student: LLM agents, vision-language models, deep learning and full-stack microservices.",
     images: ["/abj-logo.png"],
   },
   robots: {
@@ -98,7 +103,7 @@ const personJsonLd = {
   alternateName: "Ali Benjannet",
   url: siteUrl,
   image: `${siteUrl}/abj-logo.png`,
-  jobTitle: "Full-Stack Developer & Data Science / AI Engineer",
+  jobTitle: "Data Science & AI Engineering Student",
   email: "mailto:alibenjannette@gmail.com",
   telephone: "+216 54 098 546",
   address: {
@@ -130,6 +135,11 @@ const personJsonLd = {
     "Deep Learning",
     "MongoDB",
     "MySQL",
+    "PostgreSQL",
+    "Large Language Models",
+    "Vision-Language Models",
+    "Microservices",
+    "Hedera Hashgraph",
   ],
   sameAs: [
     "https://github.com/ALI0benjannet",
@@ -151,9 +161,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // suppressHydrationWarning : certaines extensions de navigateur injectent
+  // des attributs sur <html> / <body> avant l'hydratation de React.
   return (
-    <html lang="en" data-theme="dracula">
-      <body>
+    <html lang="en" data-theme="dracula" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {children}
         <script
           type="application/ld+json"

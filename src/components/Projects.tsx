@@ -7,12 +7,55 @@ import portfolio from "../assets/projects/portfrlio.png";
 import diagnostique from "../assets/projects/diagnostique.png";
 import forsatech from "../assets/projects/forsatech.jpg";
 import tumor from "../assets/projects/tumor.jpg";
+import touribook from "../assets/projects/TouriBook.jpg";
+import astro from "../assets/projects/Agent_IA.png";
+import dooby from "../assets/projects/dooby.jpg";
 import { Github } from "lucide-react";
 
 type Language = "EN" | "FR";
 
+// demoLink / repoLink vides = boutons masqués sur la carte.
 const projects = {
   EN: [
+    {
+      id: 7,
+      title: "TouriBook – Tourism Activity Booking Platform (Microservices)",
+      context: "Anypli · Aug 2026",
+      description: [
+        "Tourism activity booking platform for Tunisia: 7 FastAPI microservices (one PostgreSQL database each) behind an API gateway, a Next.js SSR client and a React admin",
+        "Booking saga with atomic SQL updates guaranteeing zero overselling, Stripe with signed idempotent webhooks, QR-code vouchers, revocable JWT sessions, FR / EN / AR with RTL",
+      ],
+      technologies: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Next.js", "React", "TypeScript", "Tailwind CSS", "Stripe", "MapLibre GL", "Docker Compose"],
+      demoLink: "",
+      repoLink: "",
+      image: touribook,
+    },
+    {
+      id: 8,
+      title: "Astro – Local-First AI Agent",
+      context: "Tradrly · Jun 2026 - Jul 2026",
+      description: [
+        "AI agent (Electron + React app, Node.js orchestrator, FastAPI AI layer) that understands French and English commands, typos included, and controls apps, volume, brightness, files, windows, agenda and Pomodoro",
+        "A regex → spaCy → Gemini / GPT-4o fallback cascade keeps it working offline; voice via faster-whisper and TTS",
+      ],
+      technologies: ["Python", "FastAPI", "spaCy", "Gemini API", "faster-whisper", "Node.js", "Electron", "React", "Tailwind CSS", "SQLite", "ChromaDB"],
+      demoLink: "",
+      repoLink: "",
+      image: astro,
+    },
+    {
+      id: 9,
+      title: "DOOBY – Timetable Extraction & \"Hey Dooby\" Wake-Word Detection",
+      context: "Tradrly · Jun 2026 - Jul 2026",
+      description: [
+        "Timetable extraction: zero-shot vision-language pipeline converting Arabic–French school timetables (image or PDF) into schema-constrained JSON (precision 93.9%, recall 81.6%, F1 87.3%, 100% exact Arabic subject labels on annotated ground truth)",
+        "Wake-word detection: made the offline \"Hey Dooby\" detector (OpenWakeWord, ONNX) truly operational after diagnosing a silent fallback that faked detections; built a real-time bench to calibrate the threshold (6/6 detections, no false triggers)",
+      ],
+      technologies: ["Gemini VLM", "Prompt Engineering", "JSON Schema", "Node.js", "Express", "Python", "OpenWakeWord", "ONNX", "Tkinter"],
+      demoLink: "",
+      repoLink: "",
+      image: dooby,
+    },
     {
       id: 0,
       title: "ForsaTech — AI-Powered Recruitment Platform",
@@ -116,6 +159,45 @@ const projects = {
     },
   ],
   FR: [
+    {
+      id: 7,
+      title: "TouriBook – Réservation d'activités touristiques (Microservices)",
+      context: "Anypli · Août 2026",
+      description: [
+        "Plateforme de réservation d'activités touristiques en Tunisie : 7 microservices FastAPI (une base PostgreSQL chacun) derrière une passerelle API, client Next.js SSR et admin React",
+        "Saga de réservation avec mises à jour SQL atomiques garantissant zéro survente, Stripe avec webhooks signés idempotents, justificatifs QR code, sessions JWT révocables, FR / EN / AR avec RTL",
+      ],
+      technologies: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Next.js", "React", "TypeScript", "Tailwind CSS", "Stripe", "MapLibre GL", "Docker Compose"],
+      demoLink: "",
+      repoLink: "",
+      image: touribook,
+    },
+    {
+      id: 8,
+      title: "Astro – Agent IA à exécution locale",
+      context: "Tradrly · Juin 2026 - Juil 2026",
+      description: [
+        "Agent IA (application Electron + React, orchestrateur Node.js, couche IA FastAPI) qui comprend les commandes en français et en anglais, fautes comprises, et pilote applications, volume, luminosité, fichiers, fenêtres, agenda et Pomodoro",
+        "Cascade de repli regex → spaCy → Gemini / GPT-4o pour fonctionner hors ligne ; voix via faster-whisper et TTS",
+      ],
+      technologies: ["Python", "FastAPI", "spaCy", "Gemini API", "faster-whisper", "Node.js", "Electron", "React", "Tailwind CSS", "SQLite", "ChromaDB"],
+      demoLink: "",
+      repoLink: "",
+      image: astro,
+    },
+    {
+      id: 9,
+      title: "DOOBY – Emplois du temps & mot de réveil « Hey Dooby »",
+      context: "Tradrly · Juin 2026 - Juil 2026",
+      description: [
+        "Extraction d'emplois du temps : pipeline vision-langage zero-shot convertissant des emplois du temps arabe–français (image ou PDF) en JSON contraint par schéma (précision 93,9 %, rappel 81,6 %, F1 87,3 %, 100 % des libellés arabes exacts sur une vérité terrain annotée)",
+        "Mot de réveil : remise en fonctionnement réel du détecteur hors ligne « Hey Dooby » (OpenWakeWord, ONNX) après diagnostic d'un repli silencieux qui simulait les détections ; banc temps réel pour calibrer le seuil (6/6 détections, aucune fausse alerte)",
+      ],
+      technologies: ["Gemini VLM", "Prompt Engineering", "JSON Schema", "Node.js", "Express", "Python", "OpenWakeWord", "ONNX", "Tkinter"],
+      demoLink: "",
+      repoLink: "",
+      image: dooby,
+    },
     {
       id: 0,
       title: "ForsaTech — Plateforme de recrutement propulsée par l'IA",
@@ -250,6 +332,11 @@ const Projects = ({ lang }: Props) => {
                 <h3 className="text-lg font-semibold text-accent leading-tight">
                   {project.title}
                 </h3>
+                {project.context && (
+                  <p className="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                    {project.context}
+                  </p>
+                )}
               </div>
               <ul className="space-y-1 text-sm text-base-content/70">
                 {project.description.map((line, idx) => (
@@ -269,14 +356,24 @@ const Projects = ({ lang }: Props) => {
                   </span>
                 ))}
               </div>
-              <div className="flex items-center gap-2 pt-2">
-                <a href={project.demoLink} className="btn btn-sm btn-accent w-2/3">
-                  {isEn ? "Demo" : "Démo"}
-                </a>
-                <a href={project.repoLink} className="btn btn-sm btn-outline  w-1/3">
-                  <Github className="w-4" />
-                </a>
-              </div>
+              {(project.demoLink || project.repoLink) && (
+                <div className="flex items-center gap-2 pt-2">
+                  {project.demoLink && (
+                    <a href={project.demoLink} className="btn btn-sm btn-accent w-2/3">
+                      {isEn ? "Demo" : "Démo"}
+                    </a>
+                  )}
+                  {project.repoLink && (
+                    <a
+                      href={project.repoLink}
+                      className="btn btn-sm btn-outline  w-1/3"
+                      aria-label="GitHub"
+                    >
+                      <Github className="w-4" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </article>
         ))}

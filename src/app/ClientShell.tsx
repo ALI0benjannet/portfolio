@@ -6,6 +6,7 @@ import Home from "@/components/Home";
 import Navbar from "@/components/Navbar";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
+import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Langue from "@/components/Langue";
@@ -42,6 +43,7 @@ export default function ClientShell() {
       <div className="p-5 md:px-[15%]">
         <Experiences lang={lang} />
         <Projects lang={lang} />
+        <Certifications lang={lang} />
         <Contact lang={lang} />
       </div>
       <Footer lang={lang} />

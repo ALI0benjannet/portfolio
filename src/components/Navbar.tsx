@@ -21,6 +21,7 @@ const Navbar = ({ lang }: Props) => {
           { href: "#skills", label: "Skills" },
           { href: "#experiences", label: "Experiences" },
           { href: "#projects", label: "Projects" },
+          { href: "#certifications", label: "Certifications" },
           { href: "#contact", label: "Contact" },
         ]
       : [
@@ -29,6 +30,7 @@ const Navbar = ({ lang }: Props) => {
           { href: "#skills", label: "Compétences" },
           { href: "#experiences", label: "Expériences" },
           { href: "#projects", label: "Projets" },
+          { href: "#certifications", label: "Certifications" },
           { href: "#contact", label: "Contact" },
         ];
 
@@ -65,7 +67,7 @@ const Navbar = ({ lang }: Props) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -81,7 +83,7 @@ const Navbar = ({ lang }: Props) => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-xl hover:bg-base-200 transition-colors"
+            className="lg:hidden p-2 rounded-xl hover:bg-base-200 transition-colors"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -90,9 +92,9 @@ const Navbar = ({ lang }: Props) => {
 
         {/* Mobile Navigation */}
         <nav
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isOpen
-              ? "max-h-64 mt-3 pt-3 border-t border-base-300/50"
+              ? "max-h-96 mt-3 pt-3 border-t border-base-300/50"
               : "max-h-0"
           }`}
         >

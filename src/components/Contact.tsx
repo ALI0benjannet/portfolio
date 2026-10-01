@@ -16,7 +16,8 @@ const Contact = ({ lang }: Props) => {
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) {
-      const msg = error.message.toLowerCase();
+      // AbortError porte l'info dans `name`, pas dans le message.
+      const msg = `${error.name} ${error.message}`.toLowerCase();
 
       if (!isEn) {
         if (msg.includes("failed to fetch") || msg.includes("networkerror")) {
@@ -25,11 +26,17 @@ const Contact = ({ lang }: Props) => {
         if (msg.includes("network")) {
           return "Problème réseau. Vérifiez votre connexion.";
         }
+        if (msg.includes("abort") || msg.includes("timeout")) {
+          return "La requête a pris trop de temps. Réessayez.";
+        }
         return "Une erreur est survenue. Réessayez plus tard.";
       }
 
       if (msg.includes("failed to fetch") || msg.includes("networkerror")) {
         return "Cannot reach server. Check your connection.";
+      }
+      if (msg.includes("abort") || msg.includes("timeout")) {
+        return "The request took too long. Please try again.";
       }
       return error.message;
     }
@@ -58,19 +65,20 @@ const Contact = ({ lang }: Props) => {
     setFeedback(null);
     setSending(true);
 
+    // Coupe la requete avant que le navigateur ne pende indefiniment.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+
     try {
       // Use relative path - works both locally (with proxy) and on Vercel
-      const endpoint = "/api/contact";
-
-      console.log("Sending to:", endpoint); // Debug log
-
-      const response = await fetch(endpoint, {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({ name, email, subject, message }),
+        signal: controller.signal,
       });
 
       let data;
@@ -100,6 +108,7 @@ const Contact = ({ lang }: Props) => {
       console.error("Contact form error:", error);
       setFeedback(getErrorMessage(error));
     } finally {
+      clearTimeout(timeoutId);
       setSending(false);
     }
   };
