@@ -1,4 +1,4 @@
-import { Download, Facebook, Github, Linkedin, Mail } from "lucide-react";
+import { ChevronDown, Download,Facebook, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
 import ali from "../assets/ali.jpg";
 
@@ -40,14 +40,32 @@ const Home = ({ lang }: Props) => {
             <Mail className="w-5 h-5" />
             {isEn ? "Contact me" : "Contactez-moi"}
           </a>
-          <a
-            href="/CV_ALI-BENJ-ANNET.pdf"
-            download
-            className="btn btn-outline btn-accent md:w-fit"
-          >
-            <Download className="w-5 h-5" />
-            {isEn ? "Download CV" : "Télécharger le CV"}
-          </a>
+          <div className="dropdown dropdown-bottom">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-outline btn-accent w-full md:w-fit"
+            >
+              <Download className="w-5 h-5" />
+              {isEn ? "Download CV" : "Télécharger le CV"}
+              <ChevronDown className="w-4 h-4" />
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu z-10 mt-2 w-52 rounded-box bg-base-200 p-2 shadow-lg"
+            >
+              <li>
+                <a href="/CV-F_AliBenJannet.pdf" download>
+                  🇫🇷 {isEn ? "French" : "Français"}
+                </a>
+              </li>
+              <li>
+                <a href="/CV-E_AliBenJannet.pdf" download>
+                  🇬🇧 {isEn ? "English" : "Anglais"}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="mt-4 flex flex-col items-start gap-3">
