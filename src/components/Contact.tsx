@@ -15,7 +15,14 @@ type Status =
   | { state: "idle" }
   | { state: "sending" }
   | { state: "success" }
-  | { state: "error"; message: string };
+  | { state: "error"; message: string; fallbackHref?: string };
+
+// Lien mailto pre-rempli : si le serveur d'envoi tombe, le visiteur peut
+// toujours envoyer son message depuis sa propre messagerie.
+const buildMailto = ({ name, email, subject, message }: Record<string, string>) =>
+  `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+    `${message}\n\n— ${name} (${email})`
+  )}`;
 
 const labels = {
   EN: {
@@ -41,6 +48,7 @@ const labels = {
     network: "Cannot reach the server. Check your connection.",
     timeout: "The request took too long. Please try again.",
     generic: `Unable to send right now. Please write directly to ${site.email}.`,
+    fallback: "Send it from my email app",
   },
   FR: {
     title: "Travaillons ensemble",
@@ -65,6 +73,7 @@ const labels = {
     network: "Impossible de contacter le serveur. Vérifiez votre connexion.",
     timeout: "La requête a pris trop de temps. Réessayez.",
     generic: `Envoi impossible pour le moment. Écrivez-moi directement à ${site.email}.`,
+    fallback: "Envoyer depuis ma messagerie",
   },
 };
 
@@ -121,8 +130,11 @@ const Contact = ({ lang }: Props) => {
       if (!response.ok) {
         const data = (await response.json().catch(() => ({}))) as { error?: string };
         // Les erreurs de validation (400) sont utiles à l'utilisateur, les autres non.
-        const message = response.status === 400 && data.error ? data.error : t.generic;
-        setStatus({ state: "error", message });
+        if (response.status === 400 && data.error) {
+          setStatus({ state: "error", message: data.error });
+        } else {
+          setStatus({ state: "error", message: t.generic, fallbackHref: buildMailto(payload) });
+        }
         return;
       }
 
@@ -135,6 +147,7 @@ const Contact = ({ lang }: Props) => {
       setStatus({
         state: "error",
         message: name === "AbortError" ? t.timeout : t.network,
+        fallbackHref: buildMailto(payload),
       });
     } finally {
       clearTimeout(timeoutId);
@@ -244,6 +257,12 @@ const Contact = ({ lang }: Props) => {
                     <XCircle className="h-5 w-5" />
                     <span>{status.message}</span>
                   </div>
+                )}
+                {status.state === "error" && status.fallbackHref && (
+                  <a href={status.fallbackHref} className="btn btn-outline btn-accent mt-3 w-full rounded-full">
+                    <Mail className="h-5 w-5" />
+                    {t.fallback}
+                  </a>
                 )}
               </div>
             </form>

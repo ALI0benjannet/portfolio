@@ -63,30 +63,44 @@ const renderEmailTemplate = ({
   `;
 };
 
+// Les valeurs collees dans le tableau de bord Vercel gardent souvent des
+// guillemets ou des espaces (ex. mot de passe Gmail « abcd efgh ijkl mnop »).
+const envValue = (key: string) =>
+  (process.env[key] ?? "").trim().replace(/^(['"])(.*)\1$/, "$2").trim();
+
+const smtpConfig = () => ({
+  host: envValue("SMTP_HOST"),
+  user: envValue("SMTP_USER"),
+  pass: envValue("SMTP_PASS").replace(/\s+/g, ""),
+  from: envValue("SMTP_FROM"),
+  to: envValue("TO_EMAIL"),
+});
+
 type SmtpAttempt = { port: number; secure: boolean };
 
-const buildTransport = ({ port, secure }: SmtpAttempt) =>
-  nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
+const buildTransport = ({ port, secure }: SmtpAttempt) => {
+  const { host, user, pass } = smtpConfig();
+  return nodemailer.createTransport({
+    host,
     port,
     secure,
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    auth: { user, pass },
     // Sans ces timeouts, une connexion bloquee fige la fonction jusqu'a ce que
     // Vercel la tue : l'utilisateur ne voit qu'une erreur generique.
     connectionTimeout: 10_000,
     greetingTimeout: 10_000,
     socketTimeout: 15_000,
-    tls: { servername: process.env.SMTP_HOST },
+    tls: { servername: host },
   });
+};
 
 // Ports tentes dans l'ordre : celui configure, puis l'autre mode Gmail.
 // 465 (TLS implicite) est frequemment bloque/lent depuis un environnement
 // serverless ; 587 (STARTTLS) passe presque toujours.
 const buildAttempts = (): SmtpAttempt[] => {
-  const configuredPort = Number(process.env.SMTP_PORT || 587);
-  const configuredSecure = process.env.SMTP_SECURE
-    ? process.env.SMTP_SECURE === "true"
-    : configuredPort === 465;
+  const configuredPort = Number(envValue("SMTP_PORT")) || 587;
+  const secureValue = envValue("SMTP_SECURE");
+  const configuredSecure = secureValue ? secureValue === "true" : configuredPort === 465;
 
   const attempts: SmtpAttempt[] = [{ port: configuredPort, secure: configuredSecure }];
   const fallback: SmtpAttempt =
@@ -96,14 +110,24 @@ const buildAttempts = (): SmtpAttempt[] => {
   return attempts;
 };
 
-const describeSmtpError = (error: unknown) => {
+// Categorie sans donnee sensible, renvoyee aussi en production pour pouvoir
+// diagnostiquer une panne sans acceder aux logs Vercel.
+const smtpErrorReason = (error: unknown) => {
   const code = (error as { code?: string })?.code ?? "";
   const responseCode = (error as { responseCode?: number })?.responseCode;
+  if (code === "EAUTH" || responseCode === 535) return "auth";
+  if (code === "ETIMEDOUT" || code === "ECONNECTION" || code === "ESOCKET" || code === "EDNS") return "connection";
+  if (code === "EENVELOPE") return "envelope";
+  return "unknown";
+};
 
-  if (code === "EAUTH" || responseCode === 535) {
+const describeSmtpError = (error: unknown) => {
+  const reason = smtpErrorReason(error);
+
+  if (reason === "auth") {
     return "SMTP authentication failed. Check SMTP_USER / SMTP_PASS (Gmail requires a 16-character App Password, without spaces).";
   }
-  if (code === "ETIMEDOUT" || code === "ECONNECTION" || code === "ESOCKET" || code === "EDNS") {
+  if (reason === "connection") {
     return "Could not reach the SMTP server (connection timed out).";
   }
   return error instanceof Error ? error.message : String(error);
@@ -146,13 +170,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
 
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    return NextResponse.json({ error: "Email service not configured." }, { status: 500 });
+  const config = smtpConfig();
+  if (!config.host || !config.user || !config.pass) {
+    return NextResponse.json({ error: "Email service not configured.", reason: "config" }, { status: 500 });
   }
 
   const mail = {
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
-    to: process.env.TO_EMAIL || process.env.SMTP_USER,
+    // Gmail impose l'adresse authentifiee comme expediteur : on garde le nom
+    // d'affichage de SMTP_FROM mais on force l'adresse de SMTP_USER.
+    from: { name: config.from.replace(/\s*<[^>]*>\s*$/, "").replace(/"/g, "").trim() || "Portfolio Contact", address: config.user },
+    to: config.to || config.user,
     replyTo: email,
     subject: `[Portfolio] ${subject}`,
     text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
@@ -187,6 +214,7 @@ export async function POST(req: Request) {
       error: isDev
         ? `SMTP error: ${detail}`
         : "Unable to send email right now. Please write directly to alibenjannette@gmail.com.",
+      reason: smtpErrorReason(lastError),
     },
     { status: 502 }
   );
